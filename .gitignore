@@ -14,7 +14,7 @@
 *.userprefs
 
 # Migrations folder
-Migrations/
+ClassLibrary/Migrations/
 
 # Build results
 [Dd]ebug/
