@@ -1,0 +1,78 @@
+﻿.navbar-text {
+    color: white;
+    transition-duration: .4s;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nvb {
+    top: 0;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, #ffffff, #f9f9f9, #f4f4f4, #eeeeee, #e9e9e9);
+    position: fixed;
+    -webkit-box-shadow: 1px 0px 11px -3px rgba(0,42,74,1);
+    -moz-box-shadow: 1px 0px 11px -3px rgba(0,42,74,1);
+    box-shadow: 1px 0px 11px -3px rgba(0,42,74,1);
+    z-index: 100;
+}
+
+.first {
+    margin-top: 25px;
+    text-align: center;
+    transform: scale(1.6);
+}
+
+.second {
+    text-align: center;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    height: 40px;
+    padding-top: 8px;
+    font-size: 18px;
+}
+
+.button {
+    width: 100%;
+    padding: 5px;
+    border-radius: 0px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: black;
+}
+
+.button:hover, .second:hover {
+    background-color: whitesmoke;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.strelica-udesno{
+    position: absolute;
+    top: 11px;
+    left: 230px;
+    /*transform:translateX(60px);*/
+    transition: all .3s;
+}
+
+.button:hover > .strelica-udesno {
+    transform: translateX(10px);
+
+}
+
+.kucica{
+    transform:translateX(-10px);
+}
+
+.oglas-act{
+    color: forestgreen;
+}
+.oglas-inact{
+    color: darkred;
+}

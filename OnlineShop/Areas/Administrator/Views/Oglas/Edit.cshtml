@@ -1,0 +1,73 @@
+﻿@model ClassLibrary.Models.Oglas
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+}
+
+<link rel="stylesheet" href="~/css/OglasLayout.css" asp-append-version="true" />
+
+<div id="start">
+    <br />
+    <br />
+    <h4>Uređivanje oglasa</h4>
+    <hr />
+    <div class="row">
+        <div class="forma-oglas-edit">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Naslov" class="control-label"></label>
+                    <input asp-for="Naslov" class="form-control" />
+                    <span asp-validation-for="Naslov" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sadrzaj" class="control-label"></label>
+                    <textarea rows="2" asp-for="Sadrzaj" class="form-control"></textarea>
+                    <span asp-validation-for="Sadrzaj" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BrojPozicija" class="control-label"></label>
+                    <input asp-for="BrojPozicija" class="form-control" />
+                    <span asp-validation-for="BrojPozicija" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lokacija"> Odaberite lokaciju: </label>
+                    <select class="form-control" asp-for="Lokacija">
+                        <option disabled selected> Odaberite grad </option>
+                        @foreach (var grad in new string[] { "Sarajevo", "Tuzla", "Zenica" })
+                        {
+                            <option value="@grad"> @grad </option>
+                        }
+                    </select>
+                    <span asp-validation-for="Lokacija" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Trajanje" class="control-label"></label>
+                    <input asp-for="Trajanje" class="form-control" />
+                    <span asp-validation-for="Trajanje" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Aktivan" /> @Html.DisplayNameFor(model => model.Aktivan)
+                    </label>
+                </div>
+                <div class="form-group" style="text-align:center;">
+                    <input type="submit" value="Sačuvaj" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Nazad</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+</div>
