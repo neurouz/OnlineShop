@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/IndexLayout.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/regular.css" />
@@ -35,8 +36,50 @@
 </head>
 <body>
 
-    <button class="btn btn-primary" onclick="location.href='@Url.Action(action:"FillDatabase", controller:"Home")'"> Popuni bazu </button>
-<button class="btn btn-danger" onclick="location.href='@Url.Action(action:"EmptyDatabase", controller:"Home")'"> Očisti bazu </button>
+    <nav class="moj-navbar">
+        <ul>
+            @*Obrisati prvi "li" element nakon izrade web aplikacije*@
+            <li>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action(action:"FillDatabase", controller:"Home")'"> Popuni bazu </button>
+                <button class="btn btn-danger" onclick="location.href='@Url.Action(action:"EmptyDatabase", controller:"Home")'"> Očisti bazu </button>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Home")">
+                    <span class="glyphicon glyphicon-home"></span>
+                    Početna
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Contact", "Home")">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Proizvodi
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("About", "Home")">
+                    Oglasi
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Search", "Home")">
+                    Postovi
+                </a>
+            </li>
+            <li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Logout"> @User.Identity.Name, Odjavi se</a>
+                }
+                else
+                {
+                    <button class="btn btn-success" asp-controller="Account" asp-action="Logout"> Prijava </button> <span style="color: white"></span>
+                    <button class="btn btn-info" asp-controller="Account" asp-action="Register"> Registracija </button>
+                }
+            </li>
+        </ul>
+    </nav>
+
+    
 
     <partial name="_CookieConsentPartial" />
 

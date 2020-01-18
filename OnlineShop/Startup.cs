@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineShop.Models;
 
 namespace OnlineShop
 {
@@ -27,6 +28,18 @@ namespace OnlineShop
             services.AddControllersWithViews();
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("connection")));
+
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                //   options.SignIn.RequireConfirmedPhoneNumber = true;
+            }).AddEntityFrameworkStores<IdentityAppContext>();
+
+            services.AddDbContext<IdentityAppContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("connection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +59,12 @@ namespace OnlineShop
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
