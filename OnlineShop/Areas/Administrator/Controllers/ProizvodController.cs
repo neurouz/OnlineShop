@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,15 @@ namespace OnlineShop.Areas.Administrator.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             ProizvodViewModel model = new ProizvodViewModel() { proizvodi = _context.proizvodi.Distinct().ToList() };
             _context.SaveChanges();
             return View(model);
         }
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddProizvod()
         {
             ProizvodViewModel model = new ProizvodViewModel()
@@ -38,7 +42,9 @@ namespace OnlineShop.Areas.Administrator.Controllers
             };
             return View(model);
         }
+
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> DodajNoviProizvodv2(Proizvod proizvod, IFormFile slikaProizvoda)
         {
             if (slikaProizvoda != null)
@@ -64,6 +70,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             return View("Redirector");
         }
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult UkloniProizvod(int id)
         {
             Proizvod p = new Proizvod() { ProizvodID = id };
@@ -73,6 +81,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             return Redirect("~/Administrator/Proizvod");
         }
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult EditRedirect(int id)
         {
             EditViewModel model = new EditViewModel()
@@ -83,6 +93,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
             };
             return View("EditProizvod", model);
         }
+
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> EditujProizvod(EditViewModel mdl)
         {
             Proizvod p = _context.proizvodi.Find(mdl.proizvodEdit.ProizvodID);
@@ -111,6 +123,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
             _context.SaveChanges();
             return Redirect("~/Administrator/Proizvod");
         }
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult Detaljno(int id)
         {
             var product = _context.proizvodi.Find(id);

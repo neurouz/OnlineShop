@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClassLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -13,20 +14,20 @@ namespace OnlineShop.Areas.Administrator.Controllers
     public class OglasController : Controller
     {
         private readonly Context _context;
-
+        
         public OglasController(Context context)
         {
             _context = context;
         }
 
-        // GET: Administrator/Oglas
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(bool? act)
         {
             return act == null ? View(await _context.oglasi.ToListAsync()) :
             View(await _context.oglasi.Where(o => o.Aktivan == act).ToListAsync());
         }
 
-        // GET: Administrator/Oglas/Details/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,7 +45,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(oglas);
         }
 
-        // GET: Administrator/Oglas/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +56,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("Id,Naslov,Sadrzaj,BrojPozicija,Lokacija,DatumObjave,Trajanje,DatumIsteka,Aktivan")] Oglas oglas)
         {
             if (ModelState.IsValid)
@@ -67,7 +69,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(oglas);
         }
 
-        // GET: Administrator/Oglas/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,11 +86,9 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(oglas);
         }
 
-        // POST: Administrator/Oglas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Naslov,Sadrzaj,BrojPozicija,Lokacija,DatumObjave,Trajanje,DatumIsteka,Aktivan")] Oglas oglas)
         {
             if (id != oglas.Id)
@@ -120,7 +120,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(oglas);
         }
 
-        // GET: Administrator/Oglas/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,9 +138,9 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(oglas);
         }
 
-        // POST: Administrator/Oglas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var oglas = await _context.oglasi.FindAsync(id);
@@ -149,6 +149,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrator")]
         private bool OglasExists(int id)
         {
             return _context.oglasi.Any(e => e.Id == id);

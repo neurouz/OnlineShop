@@ -1,4 +1,5 @@
 ﻿.moj-navbar {
+    z-index: 100;
     position: relative;
     top: 27px;
     height: 50px;
@@ -23,4 +24,20 @@
     color: white;
     text-decoration: none;
     height: 100%;
+}
+
+.admin-navbar {
+    top: 0px;
+    margin-left: 25%;
+    background-image: linear-gradient(to bottom, #ffffff, #f9f9f9, #f4f4f4, #eeeeee, #e9e9e9);
+    z-index: 100;
+    position: fixed;
+}
+
+.admin-navbar>ul>li>a{
+    color: black;
+}
+
+#danger{
+    color: white;
 }

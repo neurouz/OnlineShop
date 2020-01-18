@@ -11,9 +11,8 @@ namespace ClassLibrary.Models
         public DbSet<Uvoznik> uvoznici { get; set; }
         public DbSet<Kategorija> kategorije { get; set; }
         public DbSet<Recenzija> recenzije { get; set; }
-        public DbSet<Korisnik> korisnici { get; set; }
-        public DbSet<Administrator> administratori { get; set; }
         public DbSet<Oglas> oglasi { get; set; }
+        public DbSet<AppUser> korisnici { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

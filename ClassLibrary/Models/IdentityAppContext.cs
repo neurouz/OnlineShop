@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Models
+namespace ClassLibrary.Models
 {
     public class IdentityAppContext : IdentityDbContext<AppUser, AppRole, int>
     {

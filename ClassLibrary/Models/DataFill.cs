@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace ClassLibrary.Models
 {
@@ -290,7 +291,7 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<Korisnik>(),
+                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 3
                 }.IzracunajDatumIsteka());
 
@@ -304,7 +305,7 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 5,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<Korisnik>(),
+                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 3
                 }.IzracunajDatumIsteka());
 
@@ -318,7 +319,7 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 20,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<Korisnik>(),
+                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 1
                 }.IzracunajDatumIsteka());
 
@@ -332,7 +333,7 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
                     Aktivan = false,
-                    PrijavljeniKorisnici = new List<Korisnik>(),
+                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 1
                 }.IzracunajDatumIsteka());
 

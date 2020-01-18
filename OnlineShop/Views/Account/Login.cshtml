@@ -1,0 +1,45 @@
+﻿@model OnlineShop.ViewModels.LoginViewModel
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
+<div class="spacing"></div>
+
+<h4> Unesite vaše podatke </h4>
+
+<hr />
+<div class="row">
+    <div class="forma">
+        <form asp-action="Authorize" asp-route-returnurl = "@Model.ReturnUrl" class="register-forma">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="label-input">
+                    <label asp-for="Username" class="control-label"> Vaš username: </label>
+                    <input asp-for="Username" class="form-control" />
+                </div>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="label-input">
+                    <label asp-for="Password" class="control-label"> Vaša lozinka</label>
+                    <input asp-for="Password" class="form-control" type="password"/>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="RememberMe" /> Zapamti me
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Loguj se" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

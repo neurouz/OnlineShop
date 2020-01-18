@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace ClassLibrary.Models
@@ -13,7 +14,7 @@ namespace ClassLibrary.Models
         public DateTime DatumObjave { get; set; } = DateTime.Now;
         public int Trajanje { get; set; } = 0;
         public DateTime DatumIsteka { get; set; }
-        public List<Korisnik> PrijavljeniKorisnici { get; set; }
+        public List<AppUser> PrijavljeniKorisnici { get; set; }
         public bool Aktivan { get; set; } = true;
         public Oglas IzracunajDatumIsteka()
         {

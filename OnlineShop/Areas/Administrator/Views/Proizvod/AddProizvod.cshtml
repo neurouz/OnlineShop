@@ -7,6 +7,12 @@
 
 <link href="@Url.Content("~/css/ProizvodBox.css")" rel="stylesheet" type="text/css" />
 
+<br />
+<br />
+<br />
+<br />
+
+
 <h2 style="text-align:center; margin-top: 35px;">Dodavanje novog proizvoda</h2>
 
 <style>
@@ -29,13 +35,13 @@
 <form asp-controller="Proizvod" asp-action="DodajNoviProizvodv2" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="@Model.proizvod.NazivProizvoda"> Naziv proizvoda: </label>
-        <input name="NazivProizvoda" id="inp" type="text" class="form-control" asp-for="@Model.proizvod.NazivProizvoda"/>
+        <input name="NazivProizvoda" id="inp" type="text" class="form-control" asp-for="@Model.proizvod.NazivProizvoda" />
 
         <label asp-for="proizvod.Cijena"> Cijena proizvoda: </label>
-        <input name="Cijena" id="inp" type="number" step="any" value="0" class="form-control" asp-for="proizvod.Cijena"/>
+        <input name="Cijena" id="inp" type="number" step="any" value="0" class="form-control" asp-for="proizvod.Cijena" />
 
         <label asp-for="proizvod.Kolicina"> Količina: </label>
-        <input name="Kolicina" id="inp" type="number" value="0" class="form-control" asp-for="proizvod.Kolicina"/>
+        <input name="Kolicina" id="inp" type="number" value="0" class="form-control" asp-for="proizvod.Kolicina" />
 
         <label asp-for="proizvod.OpisProizvoda"> Detaljan opis: </label>
         <textarea name="OpisProizvoda" id="inpwide" type="text" class="form-control" placeholder="Unesite tekst" asp-for="proizvod.OpisProizvoda"></textarea>
@@ -59,8 +65,8 @@
         </select>
         <br />
 
-            <label asp-for="slikaProizvoda"> Odaberite sliku proizvoda: </label>
-            <input name="slikaProizvoda" id="file" class="form-control" type="file" accept="image/*" asp-for="slikaProizvoda">
+        <label asp-for="slikaProizvoda"> Odaberite sliku proizvoda: </label>
+        <input name="slikaProizvoda" id="file" class="form-control" type="file" accept="image/*" asp-for="slikaProizvoda">
 
         <hr />
         <div style="text-align:center;">

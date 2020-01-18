@@ -1,0 +1,47 @@
+﻿.spacing
+{
+    margin-top: 100px;
+}
+
+.forma {
+    padding-top: 25px;
+    padding: 50px;
+    width: 600px;
+    margin: auto;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+.register-forma{
+    width: 70%;
+    margin:auto;
+}
+
+.label-input{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.label-input>input{
+    width: 70%;
+}
+
+.label-input>label{
+    color: darkslategray;
+}
+
+h4{
+    text-align: center;
+}
+
+select, option{
+    width: 70% !important;
+}
+
+.submit {
+    text-align: center;
+    margin: auto;
+}

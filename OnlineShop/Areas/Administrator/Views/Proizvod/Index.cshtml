@@ -5,26 +5,29 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
-<h2 style="margin-top: 35px;"> Proizvodi </h2>
+<br />
+<br />
+<br />
+<br />
 <br />
 
 <div class="content">
     @foreach (var x in Model.proizvodi)
     {
-    <div class="card">
-        <p id="hidden"> @x.ProizvodID </p>
-        <div>
-            <p class="title"> @x.NazivProizvoda </p>
+        <div class="card">
+            <p id="hidden"> @x.ProizvodID </p>
+            <div>
+                <p class="title"> @x.NazivProizvoda </p>
+            </div>
+            <img src="@x.imageLocation" class="image" height="200" />
+            <p class="price text-primary"> Cijena artikla: @String.Format("{0:0.00}", @x.Cijena) KM </p>
+            <p class="quantity"> Trenutno na stanju: @x.Kolicina kom </p>
+            <a class="icon remove"
+               onclick="location.href='@Url.Action("UkloniProizvod", "Proizvod", new { id = x.ProizvodID })'">Ukloni proizvod</a>
+            <a class="icon edit"
+               onclick="location.href='@Url.Action("EditRedirect", "Proizvod", new { id = x.ProizvodID })'">Modifikuj proizvod</a>
+            <a class="icon details" id="icon-details"
+               onclick="location.href='@Url.Action("Detaljno", "Proizvod", new { id = x.ProizvodID })'"> Pogledaj detaljno </a>
         </div>
-        <img src="@x.imageLocation" class="image" height="200" />
-        <p class="price text-primary"> Cijena artikla: @String.Format("{0:0.00}", @x.Cijena) KM </p>
-        <p class="quantity"> Trenutno na stanju: @x.Kolicina kom </p>
-        <a class="icon remove"
-           onclick="location.href='@Url.Action("UkloniProizvod", "Proizvod", new { id = x.ProizvodID })'">Ukloni proizvod</a>
-        <a class="icon edit"
-           onclick="location.href='@Url.Action("EditRedirect", "Proizvod", new { id = x.ProizvodID })'">Modifikuj proizvod</a>
-        <a class="icon details" id="icon-details"
-           onclick="location.href='@Url.Action("Detaljno", "Proizvod", new { id = x.ProizvodID })'"> Pogledaj detaljno </a>
-    </div>
     }
 </div>

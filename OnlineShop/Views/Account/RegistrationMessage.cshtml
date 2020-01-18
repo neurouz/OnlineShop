@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
+<div class="spacing"></div>
+
+
+@if ((int)TempData["sucess"] == 1)
+{
+    <p class="text-info"> Registracija je uspješna. Sada se možete logirati. </p>
+
+}
+else
+{
+    <p class="text-danger"> Registracija neuspješna. Korisnik već postoji u bazi. </p>
+
+}

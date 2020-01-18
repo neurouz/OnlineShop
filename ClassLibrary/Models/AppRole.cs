@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Models
+namespace ClassLibrary.Models
 {
     public class AppRole : IdentityRole<int>
     {
