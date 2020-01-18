@@ -13,8 +13,11 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-# Migrations folder
+# Migrations folder za bazu podataka
 ClassLibrary/Migrations/
+
+# Migrations folder za Identity
+OnlineShop/Migrations
 
 # Build results
 [Dd]ebug/
