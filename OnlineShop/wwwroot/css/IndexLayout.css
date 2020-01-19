@@ -9,6 +9,7 @@
     -webkit-box-shadow: 0px 2px 25px 0px rgba(56,56,56,0.7);
     -moz-box-shadow: 0px 2px 25px 0px rgba(56,56,56,0.7);
     box-shadow: 0px 2px 25px 0px rgba(56,56,56,0.7);
+    border-radius: 5px;
 }
 
 .moj-navbar>ul{

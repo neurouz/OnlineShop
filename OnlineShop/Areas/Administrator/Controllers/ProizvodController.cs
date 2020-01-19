@@ -85,12 +85,15 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult EditRedirect(int id)
         {
+
             EditViewModel model = new EditViewModel()
             {
                 uvoznici = _context.uvoznici.ToList(),
                 kategorije = _context.kategorije.ToList(),
                 proizvodEdit = _context.proizvodi.Find(id),
+                staraCijena = _context.proizvodi.Find(id).Cijena
             };
+            
             return View("EditProizvod", model);
         }
 
@@ -105,6 +108,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
             p.kategorijaId = mdl.proizvodEdit.kategorijaId;
             p.uvoznikId = mdl.proizvodEdit.uvoznikId;
             p.OpisProizvoda = mdl.proizvodEdit.OpisProizvoda;
+
+            p.snizen = mdl.proizvodEdit.Cijena < mdl.staraCijena ? true : false;
 
             if (mdl.slikaProizvoda != null)
             {

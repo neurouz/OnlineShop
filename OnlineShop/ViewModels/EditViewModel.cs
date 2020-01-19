@@ -10,5 +10,6 @@ namespace OnlineShop.ViewModels
         public List<Uvoznik> uvoznici { get; set; }
         public Proizvod proizvodEdit { get; set; } = new Proizvod();
         public IFormFile slikaProizvoda { get; set; }
+        public double staraCijena { get; set; }
     }
 }

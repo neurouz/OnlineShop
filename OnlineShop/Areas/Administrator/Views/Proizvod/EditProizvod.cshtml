@@ -5,11 +5,16 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
+<br />
+<br />
+<br />
+
 <h2 style="text-align:center; margin-top: 33px;">Uređivanje proizvoda</h2>
 
 <form asp-controller="Proizvod" asp-action="EditujProizvod" enctype="multipart/form-data">
     <div class="form-group">
-        @*<label asp-for="proizvodEdit.ProizvodID"></label>*@ 
+
+        <input asp-for="staraCijena" type="hidden" value="@Model.staraCijena" />
         <input asp-for="proizvodEdit.ProizvodID" type="hidden" value="@Model.proizvodEdit.ProizvodID" />
 
         <label asp-for="proizvodEdit.NazivProizvoda"> Naziv proizvoda: </label>
@@ -58,7 +63,7 @@
         <input class="form-control-file" type="file" accept="image/*" name="SlikaProizvoda" asp-for="slikaProizvoda">
 
         <br />
-        <div style="text-align:center;">
+        <div style="text-align: center;">
             <button type="submit" class="button btn btn-success">Spasi promjene</button>
         </div>
     </div>

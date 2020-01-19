@@ -17,6 +17,7 @@ namespace ClassLibrary.Models
         public Uvoznik uvoznik { get; set; }
         public int uvoznikId { get; set; }
         public string imageLocation { get; set; }
+        public bool snizen { get; set; } = false;
         public List<Recenzija> getRecenzije()
         {
             Context conn = new Context();

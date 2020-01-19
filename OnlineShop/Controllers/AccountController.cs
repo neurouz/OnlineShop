@@ -43,11 +43,6 @@ namespace OnlineShop.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(model.Username == "Neurouz")
-                    {
-                        TempData["login"] = "Uspješno ste logovani.";
-                        return RedirectToAction("Index", "Home", new { area = "Administrator" });
-                    }
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
