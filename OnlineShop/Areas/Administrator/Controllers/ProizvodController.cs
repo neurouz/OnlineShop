@@ -17,8 +17,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
     public class ProizvodController : Controller
     {
         private readonly Context _context;
-        private readonly IHostingEnvironment _hostingEnvironment;
-        public ProizvodController(Context _temp, IHostingEnvironment hostingEnvironment)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public ProizvodController(Context _temp, IWebHostEnvironment hostingEnvironment)
         {
             _context = _temp;
             _hostingEnvironment = hostingEnvironment;
@@ -109,7 +109,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             p.uvoznikId = mdl.proizvodEdit.uvoznikId;
             p.OpisProizvoda = mdl.proizvodEdit.OpisProizvoda;
 
-            p.snizen = mdl.proizvodEdit.Cijena < mdl.staraCijena ? true : false;
+            p.snizen = mdl.proizvodEdit.Cijena <= mdl.staraCijena ? true : false;
 
             if (mdl.slikaProizvoda != null)
             {

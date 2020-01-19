@@ -1,4 +1,5 @@
-﻿.index-card{
+﻿.index-card {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -31,4 +32,18 @@
     text-align: center;
     margin: auto;
     padding-top: 5px;
+}
+
+.snizen {
+    color: white !important;
+    text-align: center;
+    margin-left: -40%;
+    width: 150%;
+    z-index: 0;
+    transform: rotate(-30deg);
+    background-color: green;
+}
+
+.snizen-opacity {
+    opacity: 0;
 }

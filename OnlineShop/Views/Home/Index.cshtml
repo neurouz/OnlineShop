@@ -36,18 +36,23 @@
                             {
                                 <div class="col-md-4">
                                     <div class="index-card">
+                                        @if (@Model.proizvodi.ElementAt(count).snizen)
+                                        {
+                                            <span class="text-center text-danger snizen"> Proizvod snižen! </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-center text-danger snizen snizen-opacity"> j </span>
+                                        }
                                         <img class="" src="@Model.proizvodi.ElementAt(count).imageLocation" height="150" />
                                         <div class="">
                                             <h4 class="text-h4"> @Model.proizvodi.ElementAt(count).NazivProizvoda </h4>
                                             <p class="text">
-                                                @Model.proizvodi.ElementAt(count).OpisProizvoda
+                                                @Model.proizvodi.ElementAt(count++).OpisProizvoda
                                             </p>
                                         </div>
                                         <div class="divex"> <a class="btn btn-outline-light">Pogledaj detaljno</a> </div>
-                                        @if (@Model.proizvodi.ElementAt(count++).snizen)
-                                        {
-                                            <p class="text-center text-danger"> Proizvod snižen! </p>
-                                        }
+
                                     </div>
                                 </div>
                             }
@@ -62,18 +67,23 @@
                             {
                                 <div class="col-md-4">
                                     <div class="index-card">
+                                        @if (@Model.proizvodi.ElementAt(count).snizen)
+                                        {
+                                            <span class="text-center text-danger snizen"> Proizvod snižen! </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-center text-danger snizen snizen-opacity"> j </span>
+                                        }
                                         <img class="" src="@Model.proizvodi.ElementAt(count).imageLocation" height="150" />
                                         <div class="">
                                             <h4 class="text-h4"> @Model.proizvodi.ElementAt(count).NazivProizvoda </h4>
                                             <p class="text">
-                                                @Model.proizvodi.ElementAt(count).OpisProizvoda
+                                                @Model.proizvodi.ElementAt(count++).OpisProizvoda
                                             </p>
                                         </div>
                                         <div class="divex"> <a class="btn btn-outline-light">Pogledaj detaljno</a> </div>
-                                        @if (@Model.proizvodi.ElementAt(count++).snizen)
-                                        {
-                                            <p class="text-center text-danger"> Proizvod snižen! </p>
-                                        }
+
                                     </div>
                                 </div>
                             }
@@ -107,7 +117,7 @@
         <div class="info-card">
             <img src="~/icons/catalog_icon.png" width="62" height="62" />
             <div>
-                <a href="https://e.issuu.com/embed.html?d=lowres&amp;u=imtec.computers">KATALOG</a>
+                <a href="">KATALOG</a>
                 <p> Omogućili smo pregled narudžbi i raznih artikala bez potrebe dolaska u poslovnicu u samo par klikova! </p>
             </div>
         </div>
@@ -116,7 +126,7 @@
         <div class="info-card">
             <img src="~/icons/iconfinder_Bright_idea_lightbulb_solution_bulb_1886494.png" width="62" height="62" />
             <div>
-                <a href="http://solutions.imtec.ba/">SLOŽENA RJEŠENJA</a>
+                <a href="">SLOŽENA RJEŠENJA</a>
                 <p> Za složena IT rjesenja i bilo kakva pitanja pozovite naš broj ili pošaljite mail na <a href="mailto:prodaja@itoprema.ba">prodaja@itoprema.ba</a> </p>
             </div>
         </div>
@@ -126,9 +136,8 @@
 <script>
 
     $(document).ready(function () {
-
         $('.text').each(function (f) {
-            var newstr = $(this).text().substring(0, 200);
+            var newstr = $(this).text().substring(0, 100);
             $(this).text(newstr);
         });
     });
