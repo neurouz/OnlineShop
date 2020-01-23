@@ -303,6 +303,7 @@ namespace ClassLibrary.Models
                     Lokacija = "Tuzla",
                     Sadrzaj = "Java programer sa najmanje 2 godine iskustva. Potrebno odlično poznavanje Java Spring i MVC. Poželjno je poznavanje Linux OS. Kandidati se mogu prijaviti putem opcije 'Prijavi se na oglas'",
                     DatumObjave = DateTime.Now,
+
                     Trajanje = 5,
                     Aktivan = true,
                     PrijavljeniKorisnici = new List<AppUser>(),
