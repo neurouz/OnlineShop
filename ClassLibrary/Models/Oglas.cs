@@ -14,7 +14,7 @@ namespace ClassLibrary.Models
         public DateTime DatumObjave { get; set; } = DateTime.Now;
         public int Trajanje { get; set; } = 0;
         public DateTime DatumIsteka { get; set; }
-        public List<AppUser> PrijavljeniKorisnici { get; set; }
+        public AppUser Autor { get; set; }
         public bool Aktivan { get; set; } = true;
         public Oglas IzracunajDatumIsteka()
         {

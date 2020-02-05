@@ -109,7 +109,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             p.uvoznikId = mdl.proizvodEdit.uvoznikId;
             p.OpisProizvoda = mdl.proizvodEdit.OpisProizvoda;
 
-            p.snizen = mdl.proizvodEdit.Cijena <= mdl.staraCijena ? true : false;
+            p.snizen = mdl.proizvodEdit.Cijena < mdl.staraCijena ? true : false;
 
             if (mdl.slikaProizvoda != null)
             {

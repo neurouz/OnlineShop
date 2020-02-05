@@ -1,145 +1,147 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Online trgovina </title>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Online trgovina </title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/NavbarLayout.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/IndexLayout.css" asp-append-version="true" />
-        <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/regular.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/NavbarLayout.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/regular.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css" />
-        <link rel="stylesheet" href="~/css/ProizvodBox.css" />
-        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    </environment>
+        <environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/NavbarLayout.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/IndexLayout.css" asp-append-version="true" />
+            <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/regular.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css" />
+            <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/NavbarLayout.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/regular.css" />
+            <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css" />
+            <link rel="stylesheet" href="~/css/ProizvodBox.css" />
+            <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+        </environment>
 
-</head>
-<body>
+    </head>
+    <body>
 
-    <nav class="moj-navbar admin-navbar">
-        <ul>
-            <li>
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Početna
-                </a>
-            </li>
-            <li>
-                <a asp-area="" asp-controller="Home" asp-action="Proizvodi">
-                    <span class="glyphicon glyphicon-search"></span>
-                    Proizvodi
-                </a>
-            </li>
-            <li>
-                <a asp-area="" asp-controller="Home" asp-action="Oglasi">
-                    Oglasi
-                </a>
-            </li>
-            <li>
-                <a asp-area="" asp-controller="Home" asp-action="Postovi">
-                    Postovi
-                </a>
-            </li>
-            <li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a id="danger" class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout"> @User.Identity.Name, Odjavi se</a>
-                }
-                else
-                {
-                    <a class="btn btn-success" asp-controller="Account" asp-action="Login"> Prijava </a> <span style="color: white"></span>
-                    <a class="btn btn-info" asp-controller="Account" asp-action="Register"> Registracija </a>
-                }
-            </li>
-        </ul>
-    </nav>
+        <nav class="moj-navbar admin-navbar">
+            <ul>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Početna
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Proizvodi">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Proizvodi
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Oglasi">
+                        Oglasi
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Postovi">
+                        Postovi
+                    </a>
+                </li>
+                <li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a id="danger" class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout"> @User.Identity.Name, Odjavi se</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success" asp-controller="Account" asp-action="Login"> Prijava </a> <span style="color: white"></span>
+                        <a class="btn btn-info" asp-controller="Account" asp-action="Register"> Registracija </a>
+                    }
+                </li>
+            </ul>
+        </nav>
 
-    <nav class="nvb">
-        <div class="first">
-            <span><i class="fa fa-user"></i></span>
-            <span> Administrator </span>
-        </div>
-        <div class="second">
-            <a class="button" asp-action="Index" asp-controller="Home"> <i class="fas fa-home kucica"></i> Početna strana </a>
-        </div>
-        <div class="btn-group dropright">
-            <a class="btn button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Proizvodi <i class="fas fa-angle-right strelica-udesno"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <h6 class="dropdown-header">Odaberite akciju</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-action="Index" asp-controller="Proizvod"><i class="far fa-list-alt"></i> Lista proizvoda</a>
-                <a class="dropdown-item" asp-action="AddProizvod" asp-controller="Proizvod"><i class="fas fa-plus"></i> Dodaj novi proizvod</a>
+        <nav class="nvb">
+            <div class="first">
+                <span><i class="fa fa-user"></i></span>
+                <span> Administrator </span>
             </div>
-        </div>
-        <div class="btn-group dropright">
-            <a class="btn button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Oglasi   <i class="fas fa-angle-right strelica-udesno"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <h6 class="dropdown-header">Odaberite akciju</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" asp-action="Index" asp-controller="Oglas" asp-route-act="true"><i class="fas fa-clipboard-list oglas-act"></i> Trenutno aktivni oglasi</a>
-                <a class="dropdown-item" asp-action="Index" asp-controller="Oglas" asp-route-act="false"><i class="fas fa-clipboard-list oglas-inact"></i> Neaktivni oglasi</a>
-                <a class="dropdown-item" asp-action="Create" asp-controller="Oglas"><i class="fas fa-plus"></i> Dodaj novi oglas</a>
+            <div class="second">
+                <a class="button" asp-action="Index" asp-controller="Home"> <i class="fas fa-home kucica"></i> Početna strana </a>
             </div>
+            <div class="btn-group dropright">
+                <a class="btn button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Proizvodi <i class="fas fa-angle-right strelica-udesno"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <h6 class="dropdown-header">Odaberite akciju</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Proizvod"><i class="far fa-list-alt"></i> Lista proizvoda</a>
+                    <a class="dropdown-item" asp-action="AddProizvod" asp-controller="Proizvod"><i class="fas fa-plus"></i> Dodaj novi proizvod</a>
+                </div>
+            </div>
+            <div class="btn-group dropright">
+                <a class="btn button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Oglasi   <i class="fas fa-angle-right strelica-udesno"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <h6 class="dropdown-header">Odaberite akciju</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Oglas" asp-route-act="true"><i class="fas fa-clipboard-list oglas-act"></i> Trenutno aktivni oglasi</a>
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Oglas" asp-route-act="false"><i class="fas fa-clipboard-list oglas-inact"></i> Neaktivni oglasi</a>
+                    <a class="dropdown-item" asp-action="Create" asp-controller="Oglas"><i class="fas fa-plus"></i> Dodaj novi oglas</a>
+                </div>
+            </div>
+        </nav>
+
+        <partial name="_CookieConsentPartial" />
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr style="margin-left: 20%;" />
         </div>
-    </nav>
 
-    <partial name="_CookieConsentPartial" />
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr style="margin-left: 20%;" />
-    </div>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
-</body>
-</html>
+        @RenderSection("Scripts", required: false)
+    </body>
+    </html>

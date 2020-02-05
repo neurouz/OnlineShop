@@ -291,7 +291,6 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 3
                 }.IzracunajDatumIsteka());
 
@@ -303,10 +302,8 @@ namespace ClassLibrary.Models
                     Lokacija = "Tuzla",
                     Sadrzaj = "Java programer sa najmanje 2 godine iskustva. Potrebno odlično poznavanje Java Spring i MVC. Poželjno je poznavanje Linux OS. Kandidati se mogu prijaviti putem opcije 'Prijavi se na oglas'",
                     DatumObjave = DateTime.Now,
-
                     Trajanje = 5,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 3
                 }.IzracunajDatumIsteka());
 
@@ -320,7 +317,6 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 20,
                     Aktivan = true,
-                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 1
                 }.IzracunajDatumIsteka());
 
@@ -334,7 +330,6 @@ namespace ClassLibrary.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
                     Aktivan = false,
-                    PrijavljeniKorisnici = new List<AppUser>(),
                     BrojPozicija = 1
                 }.IzracunajDatumIsteka());
 

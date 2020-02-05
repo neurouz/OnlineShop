@@ -26,6 +26,7 @@ namespace OnlineShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("connection")));
 
@@ -34,11 +35,7 @@ namespace OnlineShop
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
-                //   options.SignIn.RequireConfirmedPhoneNumber = true;
-            }).AddEntityFrameworkStores<IdentityAppContext>();
-
-            services.AddDbContext<IdentityAppContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("connection")));
+            }).AddEntityFrameworkStores<Context>();
 
         }
 
