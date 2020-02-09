@@ -23,8 +23,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(bool? act)
         {
-            return act == null ? View(await _context.oglasi.ToListAsync()) :
-            View(await _context.oglasi.Where(o => o.Aktivan == act).ToListAsync());
+            return act == null ? View(await _context.Oglas.ToListAsync()) :
+            View(await _context.Oglas.Where(o => o.Aktivan == act).ToListAsync());
         }
 
         [Authorize(Roles = "Administrator")]
@@ -35,7 +35,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 return NotFound();
             }
 
-            var oglas = await _context.oglasi
+            var oglas = await _context.Oglas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (oglas == null)
             {
@@ -77,7 +77,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 return NotFound();
             }
 
-            var oglas = await _context.oglasi.FindAsync(id);
+            var oglas = await _context.Oglas.FindAsync(id);
             if (oglas == null)
             {
                 return NotFound();
@@ -128,7 +128,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 return NotFound();
             }
 
-            var oglas = await _context.oglasi
+            var oglas = await _context.Oglas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (oglas == null)
             {
@@ -143,8 +143,12 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var oglas = await _context.oglasi.FindAsync(id);
-            _context.oglasi.Remove(oglas);
+            var oglas = await _context.Oglas.FindAsync(id);
+
+            var x = _context.KorisnikOglas.Where(x => x.OglasId == id).ToList();
+            _context.RemoveRange(x);
+
+            _context.Oglas.Remove(oglas);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -152,7 +156,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         private bool OglasExists(int id)
         {
-            return _context.oglasi.Any(e => e.Id == id);
+            return _context.Oglas.Any(e => e.Id == id);
         }
     }
 }

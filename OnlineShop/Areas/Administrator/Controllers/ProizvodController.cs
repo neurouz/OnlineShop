@@ -27,7 +27,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
-            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = _context.proizvodi.Distinct().ToList() };
+            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = _context.Proizvod.Distinct().ToList() };
             _context.SaveChanges();
             return View(model);
         }
@@ -37,8 +37,9 @@ namespace OnlineShop.Areas.Administrator.Controllers
         {
             ProizvodViewModel model = new ProizvodViewModel()
             {
-                uvoznici = _context.uvoznici.ToList(),
-                kategorije = _context.kategorije.ToList()
+                uvoznici = _context.Uvoznik.ToList(),
+                kategorije = _context.Kategorija.ToList(),
+                proizvodjaci = _context.Proizvodjac.ToList()
             };
             return View(model);
         }
@@ -65,7 +66,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 proizvod.imageLocation = "/pictures/no_image.svg";
             }
 
-            _context.proizvodi.Add(proizvod);
+            _context.Proizvod.Add(proizvod);
             _context.SaveChanges();
 
             return View("Redirector");
@@ -75,8 +76,17 @@ namespace OnlineShop.Areas.Administrator.Controllers
         public ActionResult UkloniProizvod(int id)
         {
             Proizvod p = new Proizvod() { ProizvodID = id };
-            _context.proizvodi.Attach(p);
-            _context.proizvodi.Remove(p);
+
+            List<Recenzija> rec = _context.Recenzija
+                .Where(x => x.ProizvodId == id).ToList();
+            List<NarudzbaStavka> nas = _context.NarudzbaStavka
+                .Where(x => x.ProizvodId == id).ToList();
+
+            _context.Recenzija.RemoveRange(rec);
+            _context.NarudzbaStavka.RemoveRange(nas);
+
+            _context.Proizvod.Attach(p);
+            _context.Proizvod.Remove(p);
             _context.SaveChanges();
 
             return Redirect("~/Administrator/Proizvod");
@@ -88,10 +98,10 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             EditViewModel model = new EditViewModel()
             {
-                uvoznici = _context.uvoznici.ToList(),
-                kategorije = _context.kategorije.ToList(),
-                proizvodEdit = _context.proizvodi.Find(id),
-                staraCijena = _context.proizvodi.Find(id).Cijena
+                uvoznici = _context.Uvoznik.ToList(),
+                kategorije = _context.Kategorija.ToList(),
+                proizvodEdit = _context.Proizvod.Find(id),
+                staraCijena = _context.Proizvod.Find(id).Cijena
             };
             
             return View("EditProizvod", model);
@@ -100,7 +110,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> EditujProizvod(EditViewModel mdl)
         {
-            Proizvod p = _context.proizvodi.Find(mdl.proizvodEdit.ProizvodID);
+            Proizvod p = _context.Proizvod.Find(mdl.proizvodEdit.ProizvodID);
 
             p.NazivProizvoda = mdl.proizvodEdit.NazivProizvoda;
             p.Cijena = mdl.proizvodEdit.Cijena;
@@ -132,12 +142,12 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Detaljno(int id)
         {
-            var product = _context.proizvodi.Find(id);
+            var product = _context.Proizvod.Find(id);
 
             if (product == null)
                 return Content("Nema");
 
-            var model = _context.proizvodi
+            var model = _context.Proizvod
                 .Include(p => p.kategorija)
                 .Include(p => p.uvoznik).ToList().Find(p => p.ProizvodID.Equals(product.ProizvodID));
 

@@ -18,10 +18,12 @@ namespace ClassLibrary.Models
         public int uvoznikId { get; set; }
         public string imageLocation { get; set; }
         public bool snizen { get; set; } = false;
+        public Proizvodjac Proizvodjac { get; set; }
+        public int ProizvodjacId { get; set; }
         public List<Recenzija> getRecenzije()
         {
             Context conn = new Context();
-            List<Recenzija> recs = conn.recenzije.Where(rec => rec.ProizvodId == this.ProizvodID).ToList();
+            List<Recenzija> recs = conn.Recenzija.Where(rec => rec.ProizvodId == this.ProizvodID).ToList();
             conn.Dispose();
             return recs;
         }

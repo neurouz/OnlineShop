@@ -10,22 +10,22 @@ namespace ClassLibrary.Models
 
         public static void EmptyDatabase(Context _context)
         {
-            _context.kategorije.RemoveRange(_context.kategorije);
+            _context.Kategorija.RemoveRange(_context.Kategorija);
             _context.SaveChanges();
 
-            _context.uvoznici.RemoveRange(_context.uvoznici);
+            _context.Uvoznik.RemoveRange(_context.Uvoznik);
             _context.SaveChanges();
 
-            _context.proizvodi.RemoveRange(_context.proizvodi);
+            _context.Proizvod.RemoveRange(_context.Proizvod);
             _context.SaveChanges();
 
-            _context.recenzije.RemoveRange(_context.recenzije);
+            _context.Recenzija.RemoveRange(_context.Recenzija);
             _context.SaveChanges();
 
         }
         public static bool IsEmptyDB(Context _context)
         {
-            return _context.proizvodi.Count() == 0;
+            return _context.Proizvod.Count() == 0;
         }
         public static bool LoadData(Context _context)
         {
@@ -35,73 +35,284 @@ namespace ClassLibrary.Models
             try
             {
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Računari" });
+                List<Post> postovi = new List<Post>();
+
+                postovi.Add(new Post()
+                {
+                    Naslov = "Title 1",
+                    Sadrzaj = "Ovo je sadrzaj posta 1",
+                    AutorId = 1,
+                    ImageLocation = "~/"
+                });
+
+                postovi.Add(new Post()
+                {
+                    Naslov = "Title 2",
+                    Sadrzaj = "Ovo je sadrzaj posta 2",
+                    AutorId = 1,
+                    ImageLocation = "~/"
+                });
+
+                postovi.Add(new Post()
+                {
+                    Naslov = "Title 3",
+                    Sadrzaj = "Ovo je sadrzaj posta 3",
+                    AutorId = 1,
+                    ImageLocation = "~/"
+                });
+
+                postovi.Add(new Post()
+                {
+                    Naslov = "Title 4",
+                    Sadrzaj = "Ovo je sadrzaj posta 4",
+                    AutorId = 1,
+                    ImageLocation = "~/"
+                });
+
+                _context.Post.AddRange(postovi);
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Laptopi" });
+                List<Dostavljac> dostavljaci = new List<Dostavljac>();
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "Euro Express",
+                    KontaktTel = "066/547-114",
+                    Adresa = "Adresa-1"
+                });
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "Express One",
+                    KontaktTel = "066/214-441",
+                    Adresa = "Adresa-2"
+                });
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "BH Pošta",
+                    KontaktTel = "033/741-369",
+                    Adresa = "Adresa-3"
+                });
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "FedEx",
+                    KontaktTel = "065/714-285",
+                    Adresa = "Adresa-4"
+                });
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "BH Brza Pošta",
+                    KontaktTel = "033/547-325",
+                    Adresa = "Adresa-5"
+                });
+
+                dostavljaci.Add(new Dostavljac()
+                {
+                    NazivDostave = "A2B",
+                    KontaktTel = "061/222-385",
+                    Adresa = "Adresa-6"
+                });
+
+                _context.Dostavljac.AddRange(dostavljaci);
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Monitori" });
+                List<Banka> banke = new List<Banka>();
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "Sberbank",
+                    KontaktTel = "033/554/788"
+                });
+
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "Reiffeissen Bank",
+                    KontaktTel = "033/714/300"
+                });
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "Turkish Ziraat Bank",
+                    KontaktTel = "033/211/187"
+                });
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "UniCredit Bank",
+                    KontaktTel = "033/400/201"
+                });
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "Addiko Bank",
+                    KontaktTel = "033/987/131"
+                });
+                banke.Add(new Banka()
+                {
+                    NazivBanke = "Privredna Banka",
+                    KontaktTel = "033/255/702"
+                });
+
+                _context.Banka.AddRange(banke);
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Periferija" });
+                _context.Drzava.Add(new Drzava() { Naziv = "Crna Gora" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Srbija" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Makedonija" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Njemačka" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Francuska" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Hrvatska" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Švedska" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Španija" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Kina" });
+                _context.SaveChanges();
+                _context.Drzava.Add(new Drzava() { Naziv = "Japan" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Slušalice" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Računari" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Procesori" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Laptopi" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Grafičke kartice" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Monitori" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Hladnjaci" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Periferija" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Matične ploče" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Slušalice" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Kućišta" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Procesori" });
                 _context.SaveChanges();
 
-                _context.kategorije.Add(new Kategorija() { NazivKategorije = "Mobilni uređaji" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Grafičke kartice" });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-1", BrojTelefona = "061554777", NazivUvoznika = "Doper Tech" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Hladnjaci" });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-2", BrojTelefona = "033666584", NazivUvoznika = "Univerzalno" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Matične ploče" });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-3", BrojTelefona = "064112027", NazivUvoznika = "UEFI Tech" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Kućišta" });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-4", BrojTelefona = "061258741", NazivUvoznika = "BIOS Tech" });
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = "Mobilni uređaji" });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-5", BrojTelefona = "036587412", NazivUvoznika = "Domod" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-1", BrojTelefona = "061554777", NazivUvoznika = "Doper Tech", SjedisteId = 1 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-6", BrojTelefona = "063335874", NazivUvoznika = "Target PC" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-2", BrojTelefona = "033666584", NazivUvoznika = "Univerzalno", SjedisteId = 1 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-7", BrojTelefona = "0603336647", NazivUvoznika = "PC Shop" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-3", BrojTelefona = "064112027", NazivUvoznika = "UEFI Tech", SjedisteId = 2 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-8", BrojTelefona = "065551550", NazivUvoznika = "Garmin" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-4", BrojTelefona = "061258741", NazivUvoznika = "BIOS Tech", SjedisteId = 2 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-9", BrojTelefona = "062258733", NazivUvoznika = "Pro Comp" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-5", BrojTelefona = "036587412", NazivUvoznika = "Domod", SjedisteId = 3 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-10", BrojTelefona = "064744110", NazivUvoznika = "Intelcom" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-6", BrojTelefona = "063335874", NazivUvoznika = "Target PC", SjedisteId = 3 });
                 _context.SaveChanges();
 
-                _context.uvoznici.Add(new Uvoznik() { AdresaUvoznika = "Adresa-11", BrojTelefona = "063312211", NazivUvoznika = "Media Market" });
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-7", BrojTelefona = "0603336647", NazivUvoznika = "PC Shop", SjedisteId = 4 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-8", BrojTelefona = "065551550", NazivUvoznika = "Garmin", SjedisteId = 4 });
+                _context.SaveChanges();
+
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-9", BrojTelefona = "062258733", NazivUvoznika = "Pro Comp", SjedisteId = 5 });
+                _context.SaveChanges();
+
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-10", BrojTelefona = "064744110", NazivUvoznika = "Intelcom", SjedisteId = 5 });
+                _context.SaveChanges();
+
+                _context.Uvoznik.Add(new Uvoznik() { AdresaUvoznika = "Adresa-11", BrojTelefona = "063312211", NazivUvoznika = "Media Market", SjedisteId = 6 });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Intel",
+                    SjedisteId = 1
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Samsung",
+                    SjedisteId = 1
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "IBM",
+                    SjedisteId = 2
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Logitech",
+                    SjedisteId = 2
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Razor",
+                    SjedisteId = 3
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Lenovo",
+                    SjedisteId = 3
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "HP",
+                    SjedisteId = 4
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Huawei",
+                    SjedisteId = 4
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Verbatim",
+                    SjedisteId = 5
+                });
+                _context.SaveChanges();
+
+                _context.Proizvodjac.Add(new Proizvodjac()
+                {
+                    NazivProizvodjaca = "Dell",
+                    SjedisteId = 5
+                });
+                _context.SaveChanges();
+
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "HP Laptop",
                     Cijena = 859.99,
@@ -109,11 +320,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 1,
                     kategorijaId = 3,
                     OpisProizvoda = "Mnogo dobar laptop, nemam rijeci zaista.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 1
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "DELL Laptop",
                     Cijena = 954.99,
@@ -121,11 +333,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 3,
                     kategorijaId = 2,
                     OpisProizvoda = "Mnogo dobar laptop, nemam rijeci zaista.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 2
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "Canyon Slušalice",
                     Cijena = 59.99,
@@ -133,11 +346,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 4,
                     kategorijaId = 5,
                     OpisProizvoda = "Slusalice Headhunterz hi koristio.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 2
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "DELL Monitor",
                     Cijena = 319.90,
@@ -145,11 +359,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 6,
                     kategorijaId = 7,
                     OpisProizvoda = "60 Herca drama dobar",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 1
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "iPhone Slušalice",
                     Cijena = 112.49,
@@ -157,11 +372,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 1,
                     kategorijaId = 7,
                     OpisProizvoda = "Slusalice za ajfon",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 1
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "RX590 8GB GDDR6",
                     Cijena = 420,
@@ -169,11 +385,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 8,
                     kategorijaId = 9,
                     OpisProizvoda = "Graficka za najnovije igre!",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 3
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "DDR4 Viper 3200MHz 16GB (8x8)",
                     Cijena = 159.99,
@@ -181,11 +398,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 5,
                     kategorijaId = 9,
                     OpisProizvoda = "Brrrrzzzzzzina.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 3
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "AMD Ryzen 2700x 3.6GHz",
                     Cijena = 374.99,
@@ -193,11 +411,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 3,
                     kategorijaId = 3,
                     OpisProizvoda = "Up to 4.4GHz",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 4
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "RIOTORO Napojna 600W",
                     Cijena = 100,
@@ -205,11 +424,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 4,
                     kategorijaId = 1,
                     OpisProizvoda = "Napaja sve moguce i nemoguce.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 4
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "PC LED Cooler",
                     Cijena = 44.90,
@@ -217,11 +437,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 4,
                     kategorijaId = 8,
                     OpisProizvoda = "RGB LED Cooler za procesor.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 5
                 });
                 _context.SaveChanges();
 
-                _context.proizvodi.Add(new Proizvod()
+                _context.Proizvod.Add(new Proizvod()
                 {
                     NazivProizvoda = "Bežična tastatura",
                     Cijena = 34.90,
@@ -229,11 +450,12 @@ namespace ClassLibrary.Models
                     uvoznikId = 2,
                     kategorijaId = 9,
                     OpisProizvoda = "Bežična tastatura sa žicama.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg"
+                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    ProizvodjacId = 5
                 });
                 _context.SaveChanges();
 
-                _context.recenzije.Add(new Recenzija()
+                _context.Recenzija.Add(new Recenzija()
                 {
                     Ocjena = 5,
                     Komentar = "Jako dobar proizvod.",
@@ -241,7 +463,7 @@ namespace ClassLibrary.Models
                 });
                 _context.SaveChanges();
 
-                _context.recenzije.Add(new Recenzija()
+                _context.Recenzija.Add(new Recenzija()
                 {
                     Ocjena = 4,
                     Komentar = "Zadovoljan/na sam.",
@@ -249,7 +471,7 @@ namespace ClassLibrary.Models
                 });
                 _context.SaveChanges();
 
-                _context.recenzije.Add(new Recenzija()
+                _context.Recenzija.Add(new Recenzija()
                 {
                     Ocjena = 3,
                     Komentar = "Za ovu cijenu može i bolji kvalitet!",
@@ -257,7 +479,7 @@ namespace ClassLibrary.Models
                 });
                 _context.SaveChanges();
 
-                _context.recenzije.Add(new Recenzija()
+                _context.Recenzija.Add(new Recenzija()
                 {
                     Ocjena = 2,
                     Komentar = "Kvalitet veoma loš, sreća pa je jeftino..",
@@ -265,7 +487,7 @@ namespace ClassLibrary.Models
                 });
                 _context.SaveChanges();
 
-                _context.recenzije.Add(new Recenzija()
+                _context.Recenzija.Add(new Recenzija()
                 {
                     Ocjena = 1,
                     Komentar = "Želim svoj novac nazad!",
@@ -283,7 +505,7 @@ namespace ClassLibrary.Models
         {
             try
             {
-                _context.oglasi.Add(new Oglas()
+                _context.Oglas.Add(new Oglas()
                 {
                     Naslov = "Tehničar",
                     Lokacija = "Sarajevo",
@@ -296,7 +518,7 @@ namespace ClassLibrary.Models
 
                 _context.SaveChanges();
 
-                _context.oglasi.Add(new Oglas()
+                _context.Oglas.Add(new Oglas()
                 {
                     Naslov = "Programer",
                     Lokacija = "Tuzla",
@@ -309,7 +531,7 @@ namespace ClassLibrary.Models
 
                 _context.SaveChanges();
 
-                _context.oglasi.Add(new Oglas()
+                _context.Oglas.Add(new Oglas()
                 {
                     Naslov = "Direktor",
                     Lokacija = "Sarajevo",
@@ -322,7 +544,7 @@ namespace ClassLibrary.Models
 
                 _context.SaveChanges();
 
-                _context.oglasi.Add(new Oglas()
+                _context.Oglas.Add(new Oglas()
                 {
                     Naslov = "Direktor",
                     Lokacija = "Tuzla",
@@ -334,6 +556,273 @@ namespace ClassLibrary.Models
                 }.IzracunajDatumIsteka());
 
                 _context.SaveChanges();
+
+                List<BankovniRacun> racuni = new List<BankovniRacun>();
+
+                racuni.Add(new BankovniRacun()
+                {
+                    BankaId = 1,
+                    KorisnikId = 2,
+                    BrojRacuna = "1547513854651354683",
+                    StanjeNaRacunu = -458.44,
+                    DatumOtvaranjaRacuna = DateTime.Now
+                });
+
+                racuni.Add(new BankovniRacun()
+                {
+                    BankaId = 3,
+                    KorisnikId = 1,
+                    BrojRacuna = "4841351638435135413",
+                    StanjeNaRacunu = 1027.47,
+                    DatumOtvaranjaRacuna = DateTime.Now
+                });
+
+                racuni.Add(new BankovniRacun()
+                {
+                    BankaId = 4,
+                    KorisnikId = 3,
+                    BrojRacuna = "5341651351651313351",
+                    StanjeNaRacunu = 3587.44,
+                    DatumOtvaranjaRacuna = DateTime.Now
+                });
+
+                racuni.Add(new BankovniRacun()
+                {
+                    BankaId = 6,
+                    KorisnikId = 4,
+                    BrojRacuna = "9816544351684513841",
+                    StanjeNaRacunu = -200.0,
+                    DatumOtvaranjaRacuna = DateTime.Now
+                });
+
+                racuni.Add(new BankovniRacun()
+                {
+                    BankaId = 5,
+                    KorisnikId = 1,
+                    BrojRacuna = "9841351684156168654",
+                    StanjeNaRacunu = 9854.55,
+                    DatumOtvaranjaRacuna = DateTime.Now
+                });
+
+                _context.Racun.AddRange(racuni);
+                _context.SaveChanges();
+
+                List<KorisnikOglas> koglasi = new List<KorisnikOglas>();
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 2,
+                    OglasId = 4,
+                    PathCV = "/CV/Korisnik-2/"
+                });
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 3,
+                    OglasId = 4,
+                    PathCV = "/CV/Korisnik-3/"
+                });
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 4,
+                    OglasId = 4,
+                    PathCV = "/CV/Korisnik-4/"
+                });
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 2,
+                    OglasId = 1,
+                    PathCV = "/CV/Korisnik-2/"
+                });
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 3,
+                    OglasId = 2,
+                    PathCV = "/CV/Korisnik-3/"
+                });
+
+                koglasi.Add(new KorisnikOglas()
+                {
+                    DatumPrijave = DateTime.Now,
+                    KorisnikId = 4,
+                    OglasId = 4,
+                    PathCV = "/CV/Korisnik-4/"
+                });
+
+                _context.KorisnikOglas.AddRange(koglasi);
+                _context.SaveChanges();
+
+                List<Narudzba> narudzbe = new List<Narudzba>();
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 158.5,
+                    Aktivna = true,
+                    DostavljacId = 4,
+                    NaruciocId = 3
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 1058.44,
+                    Aktivna = true,
+                    DostavljacId = 1,
+                    NaruciocId = 2
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 8544.45,
+                    Aktivna = false,
+                    DostavljacId = 6,
+                    NaruciocId = 3
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 317.05,
+                    Aktivna = true,
+                    DostavljacId = 2,
+                    NaruciocId = 4
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 574.88,
+                    Aktivna = false,
+                    DostavljacId = 2,
+                    NaruciocId = 4
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 4198.89,
+                    Aktivna = true,
+                    DostavljacId = 3,
+                    NaruciocId = 3
+                });
+
+                narudzbe.Add(new Narudzba()
+                {
+                    DatumKreiranjaNarudzbe = DateTime.Now,
+                    UkupnaCijena = 698.95,
+                    Aktivna = false,
+                    DostavljacId = 3,
+                    NaruciocId = 2
+                });
+
+                _context.Narudzba.AddRange(narudzbe);
+                _context.SaveChanges();
+
+                List<NarudzbaStavka> stavke = new List<NarudzbaStavka>();
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 2,
+                    NarudzbaId = 1
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 5,
+                    NarudzbaId = 6
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 10,
+                    NarudzbaId = 2
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 7,
+                    NarudzbaId = 1
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 1,
+                    NarudzbaId = 3
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 9,
+                    NarudzbaId = 3
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 4,
+                    NarudzbaId = 3
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 11,
+                    NarudzbaId = 2
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 3,
+                    NarudzbaId = 6
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 1,
+                    NarudzbaId = 6
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 5,
+                    NarudzbaId = 6
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 10,
+                    NarudzbaId = 2
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 5,
+                    NarudzbaId = 2
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 6,
+                    NarudzbaId = 5
+                });
+
+                stavke.Add(new NarudzbaStavka()
+                {
+                    ProizvodId = 2,
+                    NarudzbaId = 7
+                });
+
+                _context.NarudzbaStavka.AddRange(stavke);
+                _context.SaveChanges();
+
             }
             catch(Exception e)
             {

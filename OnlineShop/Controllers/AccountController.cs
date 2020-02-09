@@ -15,11 +15,13 @@ namespace OnlineShop.Controllers
         private UserManager<AppUser> userMgr { get; }
         private SignInManager<AppUser> signInMgr { get; }
         private RoleManager<AppRole> roleMgr { get; }
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
+        private Context _context { get; }
+        public AccountController(Context context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
         {
             userMgr = userManager;
             signInMgr = signInManager;
             roleMgr = roleManager;
+            _context = context;
         }
         public IActionResult Register()
         {
@@ -108,6 +110,7 @@ namespace OnlineShop.Controllers
         // Ovu metodu treba obrisati nakon završetka projekta
         public async Task<IActionResult> CreateRolesOnce()
         {
+
             bool x = await roleMgr.RoleExistsAsync("Administrator");
             if (!x)
             {
@@ -125,6 +128,14 @@ namespace OnlineShop.Controllers
                 };
                 await roleMgr.CreateAsync(roleKorisnik);
 
+                Drzava drzava = new Drzava()
+                {
+                    Naziv = "Bosna i Hercegovina"
+                };
+
+                _context.Drzava.Add(drzava);
+                _context.SaveChanges();
+
                 // Kreira se nalog za Administratora
                 var user = new AppUser();
 
@@ -136,13 +147,56 @@ namespace OnlineShop.Controllers
                 user.Prezime = "Hukara";
                 user.PhoneNumber = "061550134";
                 user.Spol = 'M';
+                user.SjedisteId = _context.Drzava.Find(drzava.Id).Id;
+
+                var korisnik1 = new AppUser();
+
+                korisnik1.UserName = "Korisnik-1";
+                korisnik1.Email = "k1_mail@gmail.com";
+                korisnik1.EmailConfirmed = true;
+                korisnik1.DatumRegistracije = DateTime.Now;
+                korisnik1.Ime = "Korisnik 1";
+                korisnik1.Prezime = "Prezime 1";
+                korisnik1.PhoneNumber = "061666584";
+                korisnik1.Spol = 'Z';
+                korisnik1.SjedisteId = _context.Drzava.Find(drzava.Id).Id;
+
+                var korisnik2 = new AppUser();
+
+                korisnik2.UserName = "Korisnik-2";
+                korisnik2.Email = "k2_mail@gmail.com";
+                korisnik2.EmailConfirmed = true;
+                korisnik2.DatumRegistracije = DateTime.Now;
+                korisnik2.Ime = "Korisnik 2";
+                korisnik2.Prezime = "Prezime 2";
+                korisnik2.PhoneNumber = "066547855";
+                korisnik2.Spol = 'M';
+                korisnik2.SjedisteId = _context.Drzava.Find(drzava.Id).Id;
+
+                var korisnik3 = new AppUser();
+
+                korisnik3.UserName = "Korisnik-3";
+                korisnik3.Email = "k3_mail@gmail.com";
+                korisnik3.EmailConfirmed = true;
+                korisnik3.DatumRegistracije = DateTime.Now;
+                korisnik3.Ime = "Korisnik 3";
+                korisnik3.Prezime = "Prezime 3";
+                korisnik3.PhoneNumber = "062114412";
+                korisnik3.Spol = 'Z';
+                korisnik3.SjedisteId = _context.Drzava.Find(drzava.Id).Id;
 
                 IdentityResult chkUser = await userMgr.CreateAsync(user, "$123abCdE!");
+                IdentityResult chkUser1 = await userMgr.CreateAsync(korisnik1, "Pa$$w0rD=");
+                IdentityResult chkUser2 = await userMgr.CreateAsync(korisnik2, "Ta$$t4turA=");
+                IdentityResult chkUser3 = await userMgr.CreateAsync(korisnik3, "T3$tuS3r=");
 
                 // Dodaje se rola "Administrator" na prethodno dodani nalog
                 if (chkUser.Succeeded)
                 {
                     var result1 = await userMgr.AddToRoleAsync(user, "Administrator");
+                    var result2 = await userMgr.AddToRoleAsync(korisnik1, "Korisnik");
+                    var result3 = await userMgr.AddToRoleAsync(korisnik2, "Korisnik");
+                    var result4 = await userMgr.AddToRoleAsync(korisnik3, "Korisnik");
                 }
             }
 

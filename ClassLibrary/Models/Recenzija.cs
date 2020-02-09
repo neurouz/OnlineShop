@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using ServiceStack.DataAnnotations;
 
 namespace ClassLibrary.Models

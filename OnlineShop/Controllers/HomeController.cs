@@ -15,7 +15,7 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Index()
         {
-            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = context.proizvodi.Distinct().ToList() };
+            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = context.Proizvod.Distinct().ToList() };
             return View(model);
         }
         public IActionResult FillDatabase()

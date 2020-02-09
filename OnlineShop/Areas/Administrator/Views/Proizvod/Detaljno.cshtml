@@ -36,7 +36,7 @@
             <dt>
                 Opis
             </dt>
-            <dd class="col-sm-10" style="white-space:pre-line"> @Model.OpisProizvoda </dd>
+            <dd class="col-sm-10" style="white-space:pre-line"  id="sadrzaj-proizvod"> @Model.OpisProizvoda </dd>
             <dt>
                 Kategorija
             </dt>
@@ -59,3 +59,8 @@
     <a asp-action="EditRedirect" asp-route-id="@Model.ProizvodID" class="btn btn-light"><i class="fas fa-edit ikona-edit"></i> Uredi </a> |
     <a asp-action="Index" class="btn btn-light indexpage"><i class="fas fa-angle-left ikona-back"></i>  Vrati se nazad</a>
 </div>
+
+<script>
+    var sadrzaj = document.getElementById("sadrzaj-proizvod");
+    sadrzaj.innerHTML = sadrzaj.textContent.replace("\"", "");
+</script>

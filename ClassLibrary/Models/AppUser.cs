@@ -12,5 +12,7 @@ namespace ClassLibrary.Models
         public string Prezime { get; set; }
         public char Spol { get; set; }
         public DateTime DatumRegistracije { get; set; }
+        public Drzava Sjediste { get; set; }
+        public int SjedisteId { get; set; }
     }
 }

@@ -46,7 +46,7 @@
         <label asp-for="proizvod.OpisProizvoda"> Detaljan opis: </label>
         <textarea name="OpisProizvoda" id="inpwide" type="text" class="form-control" placeholder="Unesite tekst" asp-for="proizvod.OpisProizvoda"></textarea>
 
-        <label asp-for="proizvod.kategorijaId"> Odaberite kategoriju: </label>
+        <label asp-for="proizvod.kategorijaId"> Kategorija: </label>
         <select name="kategorijaId" class="form-control" asp-for="proizvod.kategorijaId">
             <option disabled selected> Odaberite kategoriju </option>
             @foreach (var kategorija in Model.kategorije)
@@ -55,7 +55,16 @@
             }
         </select>
 
-        <label asp-for="proizvod.uvoznikId"> Odaberite uvoznika: </label>
+        <label asp-for="proizvod.ProizvodjacId"> Proizvođač: </label>
+        <select name="proizvodjacId" class="form-control" asp-for="proizvod.ProizvodjacId">
+            <option disabled selected> Odaberite proizvođača </option>
+            @foreach (var proizvodjac in Model.proizvodjaci)
+            {
+                <option value="@proizvodjac.Id"> @proizvodjac.NazivProizvodjaca </option>
+            }
+        </select>
+
+        <label asp-for="proizvod.uvoznikId"> Uvoznik: </label>
         <select name="uvoznikId" class="form-control" asp-for="proizvod.uvoznikId">
             <option disabled selected> Odaberite uvoznika </option>
             @foreach (var uvoznik in Model.uvoznici)
