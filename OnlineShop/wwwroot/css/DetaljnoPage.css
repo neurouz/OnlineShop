@@ -1,5 +1,4 @@
 ﻿.details{
-    margin-left: 20%;
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 1fr 1fr;

@@ -5,82 +5,60 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
-<link href="@Url.Content("~/css/ProizvodBox.css")" rel="stylesheet" type="text/css" />
+<div class="not-layout">
 
-<br />
-<br />
-<br />
-<br />
+    <h2 class="text-center title is-4">Novi proizvod</h2>
 
+    <form asp-controller="Proizvod" asp-action="DodajNoviProizvodv2" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="@Model.proizvod.NazivProizvoda"> Naziv proizvoda: </label>
+            <input name="NazivProizvoda" id="inp" type="text" class="form-control" asp-for="@Model.proizvod.NazivProizvoda" />
 
-<h2 style="text-align:center; margin-top: 35px;">Dodavanje novog proizvoda</h2>
+            <label asp-for="proizvod.Cijena"> Cijena proizvoda: </label>
+            <input name="Cijena" id="inpu" type="number" step="any" value="0" class="form-control" asp-for="proizvod.Cijena" />
 
-<style>
-    .button {
-        width: 200px;
-        height: 50px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 17px;
-    }
+            <label asp-for="proizvod.Kolicina"> Količina: </label>
+            <input name="Kolicina" id="inpa" type="number" value="0" class="form-control" asp-for="proizvod.Kolicina" />
 
-    #inp {
-        height: 40px;
-    }
+            <label asp-for="proizvod.OpisProizvoda"> Detaljan opis: </label>
+            <textarea name="OpisProizvoda" id="inpwide" type="text" class="form-control" placeholder="Unesite tekst" asp-for="proizvod.OpisProizvoda"></textarea>
 
-    #inpwide {
-        height: 80px;
-    }
-</style>
+            <label asp-for="proizvod.kategorijaId"> Kategorija: </label>
+            <select name="kategorijaId" class="form-control" asp-for="proizvod.kategorijaId">
+                <option disabled selected> Odaberite kategoriju </option>
+                @foreach (var kategorija in Model.kategorije)
+                {
+                    <option value="@kategorija.KategorijaID"> @kategorija.NazivKategorije </option>
+                }
+            </select>
 
-<form asp-controller="Proizvod" asp-action="DodajNoviProizvodv2" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="@Model.proizvod.NazivProizvoda"> Naziv proizvoda: </label>
-        <input name="NazivProizvoda" id="inp" type="text" class="form-control" asp-for="@Model.proizvod.NazivProizvoda" />
+            <label asp-for="proizvod.ProizvodjacId"> Proizvođač: </label>
+            <select name="proizvodjacId" class="form-control" asp-for="proizvod.ProizvodjacId">
+                <option disabled selected> Odaberite proizvođača </option>
+                @foreach (var proizvodjac in Model.proizvodjaci)
+                {
+                    <option value="@proizvodjac.Id"> @proizvodjac.NazivProizvodjaca </option>
+                }
+            </select>
 
-        <label asp-for="proizvod.Cijena"> Cijena proizvoda: </label>
-        <input name="Cijena" id="inp" type="number" step="any" value="0" class="form-control" asp-for="proizvod.Cijena" />
+            <label asp-for="proizvod.uvoznikId"> Uvoznik: </label>
+            <select name="uvoznikId" class="form-control" asp-for="proizvod.uvoznikId">
+                <option disabled selected> Odaberite uvoznika </option>
+                @foreach (var uvoznik in Model.uvoznici)
+                {
+                    <option value="@uvoznik.UvoznikID"> @uvoznik.NazivUvoznika </option>
+                }
+            </select>
+            <br />
 
-        <label asp-for="proizvod.Kolicina"> Količina: </label>
-        <input name="Kolicina" id="inp" type="number" value="0" class="form-control" asp-for="proizvod.Kolicina" />
+            <label asp-for="slikaProizvoda"> Odaberite sliku proizvoda: </label>
+            <input name="slikaProizvoda" id="file" class="form-control" type="file" accept="image/*" asp-for="slikaProizvoda">
 
-        <label asp-for="proizvod.OpisProizvoda"> Detaljan opis: </label>
-        <textarea name="OpisProizvoda" id="inpwide" type="text" class="form-control" placeholder="Unesite tekst" asp-for="proizvod.OpisProizvoda"></textarea>
+            <hr />
+            <div style="text-align:center;">
+                <button type="submit" class="btn btn-outline-primary" value="Dodaj proizvod">Dodaj proizvod</button>
+            </div>
 
-        <label asp-for="proizvod.kategorijaId"> Kategorija: </label>
-        <select name="kategorijaId" class="form-control" asp-for="proizvod.kategorijaId">
-            <option disabled selected> Odaberite kategoriju </option>
-            @foreach (var kategorija in Model.kategorije)
-            {
-                <option value="@kategorija.KategorijaID"> @kategorija.NazivKategorije </option>
-            }
-        </select>
-
-        <label asp-for="proizvod.ProizvodjacId"> Proizvođač: </label>
-        <select name="proizvodjacId" class="form-control" asp-for="proizvod.ProizvodjacId">
-            <option disabled selected> Odaberite proizvođača </option>
-            @foreach (var proizvodjac in Model.proizvodjaci)
-            {
-                <option value="@proizvodjac.Id"> @proizvodjac.NazivProizvodjaca </option>
-            }
-        </select>
-
-        <label asp-for="proizvod.uvoznikId"> Uvoznik: </label>
-        <select name="uvoznikId" class="form-control" asp-for="proizvod.uvoznikId">
-            <option disabled selected> Odaberite uvoznika </option>
-            @foreach (var uvoznik in Model.uvoznici)
-            {
-                <option value="@uvoznik.UvoznikID"> @uvoznik.NazivUvoznika </option>
-            }
-        </select>
-        <br />
-
-        <label asp-for="slikaProizvoda"> Odaberite sliku proizvoda: </label>
-        <input name="slikaProizvoda" id="file" class="form-control" type="file" accept="image/*" asp-for="slikaProizvoda">
-
-        <hr />
-        <div style="text-align:center;">
-            <button type="submit" class="btn btn-outline-primary" value="Dodaj proizvod">Dodaj proizvod</button>
         </div>
-
-    </div>
-</form>
+    </form>
+</div>

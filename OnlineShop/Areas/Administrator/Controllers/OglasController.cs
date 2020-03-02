@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClassLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
+using ReflectionIT.Mvc.Paging;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -21,10 +22,14 @@ namespace OnlineShop.Areas.Administrator.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Index(bool? act)
+        public async Task<IActionResult> Index(bool? act, int page = 1)
         {
-            return act == null ? View(await _context.Oglas.ToListAsync()) :
-            View(await _context.Oglas.Where(o => o.Aktivan == act).ToListAsync());
+            var query = act == null
+                ?  _context.Oglas.AsNoTracking().OrderBy(o => o.Id)
+                :  _context.Oglas.Where(o => o.Aktivan == act).AsNoTracking().OrderBy(o => o.Id);
+
+            var model = await PagingList.CreateAsync(query, 10, page);
+            return View(model);
         }
 
         [Authorize(Roles = "Administrator")]

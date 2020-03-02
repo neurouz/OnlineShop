@@ -16,6 +16,9 @@
 # Migrations folder za bazu podataka
 ClassLibrary/Migrations/
 
+#appsettings fajl
+*.appsettings
+
 # Migrations folder za Identity
 OnlineShop/Migrations
 

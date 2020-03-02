@@ -10,6 +10,5 @@ namespace ClassLibrary.Models
         public string NazivProizvodjaca { get; set; }
         public Drzava Sjediste { get; set; }
         public int SjedisteId { get; set; }
-
     }
 }

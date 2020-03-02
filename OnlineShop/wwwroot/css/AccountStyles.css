@@ -6,10 +6,8 @@
 .forma {
     padding-top: 25px;
     padding: 50px;
-    width: 600px;
     margin: auto;
-    border: 1px solid lightgray;
-    border-radius: 20px;
+    width: 500px;
 }
 
 .register-forma{

@@ -11,8 +11,6 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/ProizvodBox.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/IndexLayout.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/solid.css" />
@@ -20,6 +18,9 @@
         <link rel="stylesheet" href="~/lib/font-awesome/css/regular.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/bulma-0.8.0/css/bulma.css" />
+        <link rel="stylesheet" href="~/bulma-0.8.0/css/bulma.min.css" />
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -37,110 +38,177 @@
 </head>
 <body>
 
-    <nav class="moj-navbar">
-        <ul>
-            @if (User.IsInRole("Administrator"))
-            {
-                <li>
-                    <button class="btn btn-primary" onclick="location.href='@Url.Action(action:"FillDatabase", controller:"Home")'"> Popuni bazu </button>
-                    <button class="btn btn-danger" onclick="location.href='@Url.Action(action:"EmptyDatabase", controller:"Home")'"> Očisti bazu </button>
-                </li>
-            }
-            <li>
-                <a href="@Url.Action("Index", "Home")">
-                    <span class="glyphicon glyphicon-home"></span>
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="width:100%">
+        @*<div class="navbar-brand">
+
+        </div>*@
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" id="navbar-burger-id" data-target="navbar-menu-id">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div id="navbar-menu-id" class="navbar-menu" style="width:100%">
+            <div class="navbar-start">
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <button class="button is-light" onclick="location.href = '@Url.Action(action: "FillDatabase", controller: "Home")'"> Popuni bazu </button>
+                            <button class="button is-light" onclick="location.href = '@Url.Action(action: "EmptyDatabase", controller: "Home")'"> Očisti bazu </button>
+                        </div>
+                    </div>
+                }
+                <a asp-controller="Home" asp-action="Index"><img src="~/icons/logo.jpg"></a>
+                <a class="navbar-item" asp-controller="Home" asp-action="Index">
                     Početna
                 </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Contact", "Home")">
-                    <span class="glyphicon glyphicon-search"></span>
-                    Proizvodi
-                </a>
-            </li>
-            <li>
-                <a href="@Url.Action("About", "Home")">
+
+                <div class="navbar-item has-dropdown is-hoverable" id="proizvodi">
+                    <a class="navbar-link">
+                        Proizvodi
+                    </a>
+
+                    <div class="navbar-dropdown" id="proizvodlist">
+                        <a class="navbar-item">
+                            Kategorija 1
+                        </a>
+                        <a class="navbar-item">
+                            Kategorija 2
+                        </a>
+                        <a class="navbar-item">
+                            Kategorija 3
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                            Pregledaj sve
+                        </a>
+                    </div>
+                </div>
+
+                <a class="navbar-item">
                     Oglasi
                 </a>
-            </li>
-            <li>
-                <a href="@Url.Action("Search", "Home")">
-                    Postovi
+
+                <a asp-area="" asp-controller="Post" asp-action="Index" class="navbar-item">
+                    Svi postovi
                 </a>
-            </li>
-            <li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-danger" asp-controller="Account" asp-action="Logout"> @User.Identity.Name, Odjavi se</a>
-                }
-                else
-                {
-                    <a class="btn btn-success" asp-controller="Account" asp-action="Login"> Prijava </a> <span style="color: white"></span>
-                    <a class="btn btn-info" asp-controller="Account" asp-action="Register"> Registracija </a>
-                }
-            </li>
 
-        </ul>
+            </div>
+
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+
+                            @if (User.IsInRole("Administrator"))
+                            {
+
+                                <a class="button is-success"
+                                   asp-area="Administrator"
+                                   asp-controller="Home"
+                                   asp-action="Index">
+                                    <i class="fas fa-user-shield" style="padding-right: 5px"> </i>
+                                    <span> Dashboard </span>
+                                </a>
+                            }
+                            <a class="button is-danger"
+                               asp-controller="Account"
+                               asp-action="Logout">
+                                Odjavi se
+                                <i class="fas fa-sign-out-alt" style="padding-left: 5px"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" asp-controller="Account" asp-action="Register">
+                                <strong>Registruj se</strong>
+                            </a>
+                            <a class="button is-light" asp-controller="Account" asp-action="Login">
+                                Loguj se
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
     </nav>
+<hr />
 
-    @if (User.IsInRole("Administrator"))
-    {
-        <a class="btn btn-outline-secondary" 
-                asp-area="Administrator" 
-                asp-controller="Home" 
-                asp-action="Index"
-                style="position: fixed; top: 32px; right: 75px;"> 
-            Admin Panel                 
-        </a>
-    }
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; 2020 </p>
+    </footer>
+</div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 </p>
-        </footer>
-    </div>
+<partial name="_CookieConsentPartial" />
 
-    <partial name="_CookieConsentPartial" />
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+    </script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+</environment>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
+@RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+
+    $('#navbar-burger-id').click(function () {
+        if($('#navbar-burger-id').hasClass('is-active')){
+            $('#navbar-burger-id').removeClass('is-active');
+            $('#navbar-menu-id').removeClass('is-active');
+        }else {
+            $('#navbar-burger-id').addClass('is-active');
+            $('#navbar-menu-id').addClass('is-active');
+        }
+    });
+
+</script>

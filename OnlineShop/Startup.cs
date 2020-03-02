@@ -1,11 +1,13 @@
 using ClassLibrary.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineShop.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace OnlineShop
 {
@@ -23,26 +25,30 @@ namespace OnlineShop
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
 
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("connection")));
+                options.UseSqlServer(Configuration.GetConnectionString("connectionpc")));
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
-            }).AddEntityFrameworkStores<Context>();
+                options.SignIn.RequireConfirmedEmail = true;
+            }).AddEntityFrameworkStores<Context>()
+            .AddDefaultTokenProviders();
 
+            services.AddPaging(options => 
+                options.ViewName="Bootstrap4");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

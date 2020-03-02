@@ -1,0 +1,53 @@
+﻿@using System.Security.Claims
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@*<div class="notification is-link setting">*@
+    <div class="icon-box">
+        <i class="fas fa-signature setting-icon"></i>
+    </div>
+    <hr />
+    <div class="forma">
+        <form asp-action="" class="register-forma">
+            <input id="user-id" type="hidden" value="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+            <div class="field">
+                <label class="label" style="color: white"> Novi username: </label>
+                <div class="control has-icons-left">
+                    <input name="Username" class="input is-success" id="username-input" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input id="change-username" type="submit" value="Promijeni username" class="button is-info is-outlined" style="color: white" />
+                </div>
+            </div>
+        </form>
+    </div>
+@*</div>*@
+<script>
+    $("#change-username").on("click",
+        function () {
+            var id = $("#user-id").val();
+            var username = $("#username-input").val();
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: '/Administrator/Settings/SpasiUsername',
+                data: { "userId": id, "noviUsername": username },
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#admin-name").html(username);
+                    if (response == false)
+                        $("#span").html("Unesite username!");
+                    else {
+                        $("#span").html("Korisničko ime je ažurirano!");
+                    }
+                }
+            });
+        });
+</script>

@@ -10,6 +10,7 @@ namespace ClassLibrary.Models
         public string NazivUvoznika { get; set; }
         public string AdresaUvoznika { get; set; }
         public string BrojTelefona { get; set; }
+        [Required]
         public Drzava Sjediste { get; set; }
         public int SjedisteId { get; set; }
     }

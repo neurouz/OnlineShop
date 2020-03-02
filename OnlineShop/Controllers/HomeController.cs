@@ -1,8 +1,10 @@
 ﻿using ClassLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineShop.Controllers
 {
@@ -15,7 +17,12 @@ namespace OnlineShop.Controllers
         }
         public IActionResult Index()
         {
-            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = context.Proizvod.Distinct().ToList() };
+            IndexVM model = new IndexVM()
+            {
+                proizvodi = context.Proizvod.OrderBy(r => Guid.NewGuid()).Take(9).ToList(),
+                postovi = context.Post.Include(p => p.Autor).OrderByDescending(p => p.DatumObjave).Take(3).ToList(),
+                oglasi = context.Oglas.OrderBy(o => o.DatumObjave).Take(3).ToList()
+            };
             return View(model);
         }
         public IActionResult FillDatabase()

@@ -25,5 +25,10 @@ namespace ClassLibrary.Models
         {
             this.Aktivan = false;
         }
+
+        public bool IsAktivan()
+        {
+            return DateTime.Compare(DateTime.Now, DatumIsteka) < 0 ? true : false;
+        }
     }
 }

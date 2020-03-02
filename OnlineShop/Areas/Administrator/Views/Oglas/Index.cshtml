@@ -1,17 +1,25 @@
-﻿@model IEnumerable<ClassLibrary.Models.Oglas>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ClassLibrary.Models.Oglas>
+@using ReflectionIT.Mvc.Paging
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+    @addTagHelper *, ReflectionIT.Mvc.Paging
 }
+
+<style>
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+</style>
 
 <link rel="stylesheet" href="~/css/OglasLayout.css" asp-append-version="true" />
 
-<div id="start">
-    <br />
-    <h1>Oglasi - Početna strana</h1>
-    <br />
+<div class="not-layout">
+    <h4 class="text-center title is-4"> Oglasi </h4>
     <table class="table">
         <thead>
             <tr>
@@ -44,16 +52,32 @@
                         @item.DatumIsteka.ToString("dd/MM/yyyy")
 
                     </td>
-                        @if (item.Aktivan) { <td> Da </td> }
-                        else  { <td> Ne </td> }
+                    @if (item.Aktivan)
+                    {
+                        <td> Da </td>
+                    }
+                    else
+                    {
+                        <td> Ne </td>
+                    }
                     <td style="display:flex; flex-direction: row; justify-content:space-between">
                         <a asp-action="Edit" asp-route-id="@item.Id" title="Uredi"> <i class="fas fa-pen uredi" style="text-decoration:none"></i> </a>
                         <a asp-action="Details" asp-route-id="@item.Id" style="color:green" title="Detaljno"> <i class="fas fa-info-circle det"></i> </a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" style="color:darkred" title="Obriši"> <i class="fas fa-trash ukloni"></i> </a> 
+                        <a asp-action="Delete" asp-route-id="@item.Id" style="color:darkred" title="Obriši"> <i class="fas fa-trash ukloni"></i> </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <nav aria-label="Oglas Paging">
+        <vc:pager paging-list="@Model" />
+    </nav>
+    <hr />
+
+    <a class="button is-primary" asp-controller="Oglas" asp-action="Create">
+        <span style="margin-right: 8px;"><i class="fas fa-plus"></i></span>
+        <span> Novi oglas </span>
+    </a>
 
 </div>

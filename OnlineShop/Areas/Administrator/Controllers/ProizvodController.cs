@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ReflectionIT.Mvc.Paging;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -25,10 +26,16 @@ namespace OnlineShop.Areas.Administrator.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int page = 1)
         {
-            ProizvodViewModel model = new ProizvodViewModel() { proizvodi = _context.Proizvod.Distinct().ToList() };
-            _context.SaveChanges();
+            var query = _context.Proizvod
+                .Include(p => p.Proizvodjac)
+                .Include(p => p.uvoznik)
+                .Include(p => p.kategorija)
+                .AsNoTracking().OrderBy(p => p.ProizvodID);
+
+            var model = await PagingList.CreateAsync(query, 10, page);
+
             return View(model);
         }
 
@@ -69,7 +76,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             _context.Proizvod.Add(proizvod);
             _context.SaveChanges();
 
-            return View("Redirector");
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Administrator")]
@@ -153,6 +160,50 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             return View(model);
             
+        }
+        public async Task<bool> DodajKategoriju(string kategorija)
+        {
+            if (kategorija != null)
+            {
+                _context.Kategorija.Add(new Kategorija() { NazivKategorije = kategorija });
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public async Task<bool> DodajDobavljaca(string naziv, string adresa, string kontakt)
+        {
+            if (naziv != null && adresa != null && kontakt != null)
+            {
+                _context.Dostavljac.Add(new Dostavljac()
+                {
+                    Adresa = adresa,
+                    KontaktTel = kontakt,
+                    NazivDostave = naziv
+                });
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public IActionResult DodajUvoznika()
+        {
+            UvoznikVM model = new UvoznikVM()
+            {
+                sjedista = _context.Drzava.ToList()
+            };
+            return View(model);
+        }
+
+        public async Task<bool> SnimiUvoznika(Uvoznik uvoznik)
+        {
+            _context.Uvoznik.Add(uvoznik);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
