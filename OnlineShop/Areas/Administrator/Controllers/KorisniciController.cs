@@ -52,8 +52,20 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return user.UserName;
         }
         [Authorize(Roles = "Administrator")]
-        public async Task<string> PosaljiMail(string userId, string text)
+        public async Task<string> PosaljiMail(string userId, string text, string title="Obavijest")
         {
+
+            if (userId == "All")
+            {
+                foreach (var korisnik in await userMgr.GetUsersInRoleAsync("Korisnik"))
+                {
+                    if(korisnik.Id == 1002 || korisnik.Id == 22995)
+                        PosaljiPoruku(korisnik, text, title);
+                }
+
+                return "Uspješno poslan mail svim korisnicima";
+            }
+
             var user = await userMgr.FindByIdAsync(userId);
             if (user == null)
                 return "error";

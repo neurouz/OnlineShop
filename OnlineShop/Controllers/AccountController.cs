@@ -48,6 +48,21 @@ namespace OnlineShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                var pw = await userMgr.FindByNameAsync(model.Username);
+                if (pw != null)
+                {
+                    if (!(await userMgr.CheckPasswordAsync(pw, model.Password)))
+                    {
+                        pw.AccessFailedCount++;
+                        await userMgr.UpdateAsync(pw);
+
+                        ViewBag.Info = "Prijava neuspješna";
+                        ViewBag.ErrorMsg = "Vaša lozinka nije ispravna";
+                        ViewBag.Id = pw.Id.ToString();
+                        return PartialView("BadLogin");
+                    }
+                }
+
                 var result = await signInMgr.PasswordSignInAsync(model.Username,
                    model.Password, model.RememberMe, false);
 

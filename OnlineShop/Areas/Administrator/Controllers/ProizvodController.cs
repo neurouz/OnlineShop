@@ -152,7 +152,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             var product = _context.Proizvod.Find(id);
 
             if (product == null)
-                return Content("Nema");
+                return View("Error");
 
             var model = _context.Proizvod
                 .Include(p => p.kategorija)
