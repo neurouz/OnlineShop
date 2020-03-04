@@ -25,15 +25,45 @@ namespace OnlineShop.Areas.Administrator.Controllers
             _context = context;
         }
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Index(int page = 1)
+        public IActionResult Index()
         {
-            var query = userMgr.Users.AsNoTracking().OrderBy(k => k.Id);
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> GetUsersPartial(int page = 1, string search="none")
+        {
+            IOrderedQueryable<AppUser> query;
+            int pageSize = 8;
+            if (search == "none" || search == null)
+            {
+                query = userMgr.Users.AsNoTracking().OrderBy(k => k.Id);
+            }
+            else
+            {
+                var stringProperties =
+                    typeof(AppUser).GetProperties().Where(prop => prop.PropertyType == search.GetType());
+
+                query = userMgr.Users
+                    .Where(u => u.UserName.Contains(search) || u.Email.Contains(search)
+                                || u.Ime.Contains(search) || u.Prezime.Contains(search)
+                                || (u.Ime + " " + u.Prezime).Contains(search))
+                    .AsNoTracking().OrderBy(k => k.Id);
+
+                if (query.Count() >= 5)
+                    pageSize = query.Count();
+            }
+
             KorisnikIndexVM model = new KorisnikIndexVM()
             {
-                korisnici = await PagingList.CreateAsync(query, 15, page)
+                korisnici = await PagingList.CreateAsync(query, pageSize, page)
             };
-            return View(model);
+            if (model.korisnici.Count() == 0)
+                return Content("<p class=\" title text text-center \">Ne postoji nijedan zapis sa ključnom riječi '" + search + "'. </p>");
+
+            return PartialView("KorisniciPartial", model);
         }
+
         [Authorize(Roles = "Administrator")]
         public async Task<string> PosaljiToken(string UserID)
         {

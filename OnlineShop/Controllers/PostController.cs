@@ -27,7 +27,7 @@ namespace OnlineShop.Controllers
 
         public async Task<IActionResult> Pregled(int postId)
         {
-            Post model = _context.Post.Find(postId);
+            Post model = await _context.Post.FindAsync(postId);
             return View(model);
         }
 
