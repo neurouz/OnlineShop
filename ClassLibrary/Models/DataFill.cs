@@ -665,7 +665,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 158.5,
                     Aktivna = true,
                     DostavljacId = 4,
                     NaruciocId = 3
@@ -674,7 +673,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 1058.44,
                     Aktivna = true,
                     DostavljacId = 1,
                     NaruciocId = 2
@@ -683,7 +681,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 8544.45,
                     Aktivna = false,
                     DostavljacId = 6,
                     NaruciocId = 3
@@ -692,7 +689,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 317.05,
                     Aktivna = true,
                     DostavljacId = 2,
                     NaruciocId = 4
@@ -701,7 +697,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 574.88,
                     Aktivna = false,
                     DostavljacId = 2,
                     NaruciocId = 4
@@ -710,7 +705,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 4198.89,
                     Aktivna = true,
                     DostavljacId = 3,
                     NaruciocId = 3
@@ -719,7 +713,6 @@ namespace ClassLibrary.Models
                 narudzbe.Add(new Narudzba()
                 {
                     DatumKreiranjaNarudzbe = DateTime.Now,
-                    UkupnaCijena = 698.95,
                     Aktivna = false,
                     DostavljacId = 3,
                     NaruciocId = 2

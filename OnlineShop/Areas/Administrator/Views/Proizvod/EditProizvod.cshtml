@@ -55,6 +55,14 @@
                         }
                     }
                 </select>
+                <label asp-for="proizvodEdit.ProizvodjacId"> Proizvođač: </label>
+                <select class="form-control" asp-for="proizvodEdit.ProizvodjacId">
+                    <option selected value="@Model.proizvodEdit.ProizvodjacId"> @Model.proizvodEdit.NazivProizvoda </option>
+                    @foreach (var proizvodjac in Model.proizvodjaci)
+                    {
+                        <option value="@proizvodjac.Id"> @proizvodjac.NazivProizvodjaca </option>
+                    }
+                </select>
                 <br />
                 <label asp-for="slikaProizvoda"> Odaberite novu sliku proizvoda: </label>
                 <input class="form-control-file" type="file" accept="image/*" name="SlikaProizvoda" asp-for="slikaProizvoda">

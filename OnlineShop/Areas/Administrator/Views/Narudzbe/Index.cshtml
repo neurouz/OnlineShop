@@ -1,0 +1,54 @@
+﻿@model List<OnlineShop.ViewModels.NarudzbaCollection>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/NarudzbaIndex.css"/>
+
+<div class="not-layout">
+    <h1 class="title is-2 text-center"> Narudžbe </h1>
+    <div class="orders">
+        @foreach (var x in Model)
+        {
+            <div class="narudzba is-primary">
+                <p class="title text-center is-4"> Narudžba ID: @x.narudzba.Id </p>
+                <div class="detalji">
+                    <p class="">Naručioc: @string.Concat(@x.narudzba.Narucioc.Ime + " " + @x.narudzba.Narucioc.Prezime)</p>
+                    <p class="">Datum narudžbe: @x.narudzba.DatumKreiranjaNarudzbe.ToShortDateString()</p>
+                    <p class="">
+                        Potvrdio:
+                        @if (x.narudzba.Aktivna)
+                        {<span style="color: green">DA</span>}
+                        else
+                        {<span style="color: red">NE</span>}
+                    </p>
+                    <p class="">Ukupan iznos:<b style="color: green;"> @x.UkupnaCijena KM</b></p>
+                </div>
+
+                <table class="table is-bordered tabela">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID Proizvoda</th>
+                            <th>Naziv Proizvoda</th>
+                            <th>Cijena (kom)</th>
+                            <th>Uvoznik</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach (var y in x.proizvodi)
+                    {
+                        <tr>
+                            <td>@y.ProizvodID</td>
+                            <td>@y.NazivProizvoda</td>
+                            <td>@y.Cijena KM</td>
+                            <td>@y.uvoznik.NazivUvoznika</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

@@ -1,5 +1,4 @@
-﻿@model ReflectionIT.Mvc.Paging.PagingList<ClassLibrary.Models.Proizvod>
-@using ReflectionIT.Mvc.Paging
+﻿@using ReflectionIT.Mvc.Paging
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,70 +7,110 @@
     @addTagHelper *, ReflectionIT.Mvc.Paging
 }
 
-<style>
-    .pagination {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-    }
-</style>
-
 <div class="not-layout">
     <h4 class="text-center title is-4"> Lista proizvoda </h4>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Naziv</th>
-            <th>Cijena</th>
-            <th>Količina</th>
-            <th>Kategorija</th>
-            <th>Proizvođač</th>
-            <th>Uvoznik</th>
-            <th>Akcija</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var x in Model)
-        {
-            <tr>
-                <td> <b> @x.ProizvodID </b> </td>
-                <td style="color:darkcyan"> @x.NazivProizvoda </td>
-                <td> @String.Format("{0:0.00}", @x.Cijena) KM </td>
-                <td> @x.Kolicina </td>
-                <td> @x.kategorija.NazivKategorije </td>
-                <td> @x.Proizvodjac.NazivProizvodjaca </td>
-                <td> @x.uvoznik.NazivUvoznika </td>
-
-                <td>
-                    <div class="modal">
-                        <div class="modal-background"></div>
-                        <div class="modal-content">
-                            <!-- Any other Bulma elements you want -->
-                        </div>
-                        <button class="modal-close is-large" aria-label="close"></button>
-                    </div>
-                    <a asp-controller="Proizvod" asp-action="Detaljno" asp-route-id="@x.ProizvodID" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Detaljno"><i style="color:white" class="fas fa-info-circle"></i></a>
-                    <a asp-controller="Proizvod" asp-action="EditRedirect" asp-route-id="@x.ProizvodID" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Modifikuj"><i style="color:white" class="far fa-edit"></i></a>
-                    <a asp-controller="Proizvod" asp-action="UkloniProizvod" asp-route-id="@x.ProizvodID" class="button is-danger" data-toggle="tooltip" data-placement="bottom" title="Ukloni"><i style="color:white" class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-
-    <nav aria-label="Proizvod Paging">
-        <vc:pager paging-list="@Model"/>
-    </nav>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input id="proizvodi-pretraga" class="input" type="text"
+                   placeholder="Unesite naziv proizvoda, kategoriju ili nešto drugo..">
+            <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field is-horizontal">
+        <label class="label is-small" style="padding-top: 5px; padding-right: 10px">Sortiraj po</label>
+        <div class="control">
+            <div class="select is-small">
+                <select id="sort-product" onchange="sortirajPo()">
+                    <option selected value="1"> ID Proizvoda </option>
+                    <option value="2">Cijeni - od najjeftinije do najskuplje</option>
+                    <option value="3">Cijeni - od najskuplje do najjeftinije</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="product-partial">
+        <img id="loading" src="~/pictures/Ripple-1s-200px.gif" />
+    </div>
 
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 
+
+    var selectBox = document.getElementById("sort-product");
+
+    var vrijednost = selectBox.options[selectBox.selectedIndex].value;
+
+    function sortirajPo() {
+        vrijednost = selectBox.options[selectBox.selectedIndex].value;
+        $.post("/Administrator/Proizvod/GetProizvode",
+            { "page": 1, "search": $("#proizvodi-pretraga").val(), "sortBy": vrijednost },
+            function (result) {
+                $("#product-partial").empty();
+                $("#product-partial").html(result);
+            });
+    }
+
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $.post("/Administrator/Proizvod/GetProizvode",
+            {},
+            function (result) {
+                $("#product-partial").html(result);
+                $.post("/Administrator/Proizvod/GetProizvode",
+                    { "page": 1, "search": $("#pretraga").val(), "sortBy": vrijednost },
+                    function (result) {
+                        $("#product-partial").empty();
+                        $("#product-partial").html(result);
+                    });
+            });
+
+    });
+
+    $("#proizvodi-pretraga").keyup(function() {
+        $.post("/Administrator/Proizvod/GetProizvode",
+            { "page": 1, "search": $("#proizvodi-pretraga").val(), "sortBy": vrijednost },
+            function (result) {
+                $("#product-partial").empty();
+                $("#product-partial").html(result);                  
+            });
     });
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    #loading {
+        display: block;
+        margin: auto;
+        width: 80px;
+        margin-top: 70px;
+    }
+</style>

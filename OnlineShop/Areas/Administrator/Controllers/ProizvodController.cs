@@ -26,17 +26,86 @@ namespace OnlineShop.Areas.Administrator.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> Index(int page = 1)
+        public async Task<ActionResult> Index()
         {
-            var query = _context.Proizvod
-                .Include(p => p.Proizvodjac)
-                .Include(p => p.uvoznik)
-                .Include(p => p.kategorija)
-                .AsNoTracking().OrderBy(p => p.ProizvodID);
+            return View();
+        }
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> GetProizvode(int page = 1, string search = "none", int sortBy = 1)
+        {
+            IOrderedQueryable<Proizvod> query;
+            int pageSize = 8;
 
-            var model = await PagingList.CreateAsync(query, 10, page);
+            if (search == "none" || search == null)
+            {
+                if(sortBy == 2)
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                    .AsNoTracking().OrderBy(p => p.Cijena);
+                }
+                else if (sortBy == 3)
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                    .AsNoTracking().OrderByDescending(p => p.Cijena);
+                }
+                else
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                    .AsNoTracking().OrderBy(p => p.ProizvodID);
+                }
+            }
+            else
+            {
+                if (sortBy == 2)
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                        .Where(p => p.NazivProizvoda.Contains(search) || p.kategorija.NazivKategorije.Contains(search)
+                        || p.Proizvodjac.NazivProizvodjaca.Contains(search)
+                        || p.uvoznik.NazivUvoznika.Contains(search))
+                        .AsNoTracking().OrderBy(p => p.Cijena);
+                }
+                else if (sortBy == 3)
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                        .Where(p => p.NazivProizvoda.Contains(search) || p.kategorija.NazivKategorije.Contains(search)
+                        || p.Proizvodjac.NazivProizvodjaca.Contains(search)
+                        || p.uvoznik.NazivUvoznika.Contains(search))
+                        .AsNoTracking().OrderByDescending(p => p.Cijena);
+                }
+                else
+                {
+                    query = _context.Proizvod
+                        .Include(p => p.Proizvodjac)
+                        .Include(p => p.uvoznik)
+                        .Include(p => p.kategorija)
+                        .Where(p => p.NazivProizvoda.Contains(search) || p.kategorija.NazivKategorije.Contains(search)
+                        || p.Proizvodjac.NazivProizvodjaca.Contains(search)
+                        || p.uvoznik.NazivUvoznika.Contains(search))
+                        .AsNoTracking().OrderBy(p => p.ProizvodID);
+                }
+                if (query.Count() >= 5)
+                    pageSize = query.Count();
+            }
 
-            return View(model);
+            var model = await PagingList.CreateAsync(query, pageSize, page);
+            if (model.Count() == 0)
+                return Content("<p class=\" title text text-center \">Ne postoji nijedan zapis sa ključnom riječi '" + search + "'. </p>");
+            return PartialView("ProizvodiPartial", model);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -108,6 +177,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 uvoznici = _context.Uvoznik.ToList(),
                 kategorije = _context.Kategorija.ToList(),
                 proizvodEdit = _context.Proizvod.Find(id),
+                proizvodjaci = _context.Proizvodjac.ToList(),
                 staraCijena = _context.Proizvod.Find(id).Cijena
             };
             
@@ -125,6 +195,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             p.kategorijaId = mdl.proizvodEdit.kategorijaId;
             p.uvoznikId = mdl.proizvodEdit.uvoznikId;
             p.OpisProizvoda = mdl.proizvodEdit.OpisProizvoda;
+            p.ProizvodjacId = mdl.proizvodEdit.ProizvodjacId;
 
             p.snizen = mdl.proizvodEdit.Cijena < mdl.staraCijena ? true : false;
 

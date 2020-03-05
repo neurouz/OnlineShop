@@ -9,7 +9,7 @@
     top:0;
     left:0;
     bottom:0;
-    overflow-y:scroll !important;
+    overflow-y: scroll !important;
     transition: all .4s;
     z-index:200000;
 }
@@ -84,4 +84,57 @@
 
 .flex-content>button {
     height: 80%;
+}
+
+#navbarBasicExample {
+    text-decoration: none;
+}
+
+#navbarBasicExample * :hover {
+    text-decoration: none;
+}
+
+.navbar-item>span{
+    transition: all .2s;
+}
+
+.navbar-item:hover > span {
+    transform: translateX(-4px) scale(1.05);
+}
+
+.navbar-item>span>i{
+    color: darkcyan;
+}
+
+#admin-title {
+    padding-top: 35px;
+    color: darkcyan;
+    font-size: 45px;
+}
+
+.kontent {
+    display: flex;
+    flex-direction: row;
+}
+
+.black {
+    background-color: #557A95;
+    color: white;
+}
+
+.black > .title {
+        color: white !important;
+    }
+
+.black > .subtitle {
+        color: white !important;
+        opacity: 0.7;
+    }
+
+.trecired:hover {
+    transform: scale(1.03);
+}
+
+.box:hover {
+    text-decoration: none;
 }

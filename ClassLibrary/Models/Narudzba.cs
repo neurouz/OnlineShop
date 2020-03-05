@@ -7,7 +7,6 @@ namespace ClassLibrary.Models
     public class Narudzba
     {
         public int Id { get; set; }
-        public double UkupnaCijena { get; set; }
         public DateTime DatumKreiranjaNarudzbe { get; set; }
         public bool Aktivna { get; set; }
         public Dostavljac Dostavljac { get; set; }
