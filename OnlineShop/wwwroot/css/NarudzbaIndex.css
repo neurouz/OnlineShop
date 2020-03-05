@@ -16,3 +16,23 @@
 .tabela {
     margin-top: 15px;
 }
+
+.content-right {
+    position: absolute;
+    width: 100%;
+    right: 25px;
+    margin-right: 25px;
+    text-align: right;
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.kontakt {
+    position: relative;
+    width: 100%;
+    
+}

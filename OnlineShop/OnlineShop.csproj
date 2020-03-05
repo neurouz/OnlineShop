@@ -20,6 +20,7 @@
     <PackageReference Include="MimeKit" Version="2.5.1" />
     <PackageReference Include="Moment.js" Version="2.24.0" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.2" />
+    <PackageReference Include="P.Pager.Mvc.Core" Version="3.0.0" />
     <PackageReference Include="ReflectionIT.Mvc.Paging" Version="4.0.0" />
     <PackageReference Include="SendGrid" Version="9.12.7" />
     <PackageReference Include="TinyMCE" Version="5.2.0" />

@@ -13,5 +13,6 @@ namespace ClassLibrary.Models
         public int DostavljacId { get; set; }
         public AppUser Narucioc { get; set; }
         public int NaruciocId { get; set; }
+        public bool Potvrdjena { get; set; }
     }
 }

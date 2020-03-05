@@ -42,9 +42,6 @@ namespace OnlineShop.Areas.Administrator.Controllers
             }
             else
             {
-                var stringProperties =
-                    typeof(AppUser).GetProperties().Where(prop => prop.PropertyType == search.GetType());
-
                 query = userMgr.Users
                     .Where(u => u.UserName.Contains(search) || u.Email.Contains(search)
                                 || u.Ime.Contains(search) || u.Prezime.Contains(search)

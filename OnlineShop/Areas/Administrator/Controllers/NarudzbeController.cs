@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.ViewModels;
+using ReflectionIT.Mvc.Paging;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -17,14 +18,15 @@ namespace OnlineShop.Areas.Administrator.Controllers
     {
         private UserManager<AppUser> userMgr { get; }
         private Context _context { get; }
+
+        private static int? filter = 0;
         public NarudzbeController(UserManager<AppUser> mgr, Context context)
         {
             userMgr = mgr;
             _context = context;
         }
 
-        [Authorize(Roles = "Administrator")]
-        public IActionResult Index()
+        public IQueryable<NarudzbaCollection> GenerisiNarudzbe()
         {
             NarudzbaIndexVM model = new NarudzbaIndexVM()
             {
@@ -39,9 +41,9 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 kolekcija.Add(new NarudzbaCollection()
                 {
-                    narudzba = narudzba, 
+                    narudzba = narudzba,
                     proizvodi = new List<Proizvod>(),
-                    kolicine = new List<int>()
+                    _container = new ProizvodContainer()
                 });
 
                 foreach (var stavka in model.narudzbeStavke)
@@ -54,10 +56,64 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 }
             }
 
-            foreach(var x in kolekcija)
+            foreach (var x in kolekcija)
+            {
                 x.GenerisiCijenu();
+                x.PopuniContainer();
+            }            
 
-            return View(kolekcija);
+            return kolekcija.AsQueryable().AsNoTracking();
         }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Index(int? orderBy, int page = 1)
+        {
+
+            if (orderBy != null)
+                filter = orderBy;
+
+            var narudzbe = GenerisiNarudzbe();
+            IQueryable<NarudzbaCollection> query;
+
+            // Prikaz svih narudzbi
+            if (filter == 0)        
+                query = narudzbe
+                    .OrderBy(k => k.narudzba.DatumKreiranjaNarudzbe);
+
+            // Prikaz aktivnih narudzbi
+            else if (filter == 1)
+                query = narudzbe.Where(k => k.narudzba.Aktivna == true)
+                    .OrderBy(k => k.narudzba.DatumKreiranjaNarudzbe);
+
+            // Prikaz neaktivnih narudzbi
+            else if (filter == 2)
+                query = narudzbe.Where(k => !k.narudzba.Aktivna);
+
+            else
+                query = narudzbe.OrderBy(k => k.narudzba.Id);
+
+            var model = PagingList.Create(query, 5, page);
+
+            TempData["feelter"] = filter;
+            return View(model);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> PotvrdiNarudzbu(int? narudzbaId)
+        {
+            if (narudzbaId == null)
+                return Content("Narudžba ne postoji");
+
+            var narudzba = await _context.Narudzba.FindAsync(narudzbaId);
+
+            if (narudzba.Potvrdjena)
+                return Content("Narudžba je već potvrđena");
+
+            narudzba.Potvrdjena = true;
+            await _context.SaveChangesAsync();
+
+            return Content("Narudžba potvrđena");
+        }
+
     }
 }
