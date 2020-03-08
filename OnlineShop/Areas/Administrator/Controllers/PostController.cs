@@ -31,7 +31,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var query = _context.Post.Include(x => x.Autor).AsNoTracking().OrderByDescending(p => p.DatumObjave);
+            var query = _context.Post.Include(x => x.Autor).AsNoTracking().OrderBy(p => p.Id);
             var model = await PagingList.CreateAsync(query, 3, page);
 
             return View(model);

@@ -25,7 +25,6 @@
                         <option selected value="0"> Sve narudžbe </option>
                         <option value="1"> Aktivne narudžbe </option>
                         <option value="2"> Neaktivne narudžbe </option>
-                        <option value="3"> Aktivne nepotvrđene narudžbe </option>
                     </select>
                 </div>
             </div>
@@ -144,17 +143,17 @@
     };
 
     var selector = document.getElementById("filter-order");
-    if (@TempData["feelter"] == 0) {
-        selector.options[0].selected = true;
-    }
-    else if (@TempData["feelter"] == 1) {
+    if (@TempData["feelter"] == 1) {
         selector.options[1].selected = true;
     }
     else if (@TempData["feelter"] == 2) {
         selector.options[2].selected = true;
     }
-    else {
+    else if (@TempData["feelter"] == 3) {
         selector.options[3].selected = true;
+    }
+    else {
+        selector.options[0].selected = true;
     }
 
 </script>

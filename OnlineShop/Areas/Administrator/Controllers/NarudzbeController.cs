@@ -20,14 +20,12 @@ namespace OnlineShop.Areas.Administrator.Controllers
         private Context _context { get; }
 
         private static int? filter = 0;
-
         public NarudzbeController(UserManager<AppUser> mgr, Context context)
         {
             userMgr = mgr;
             _context = context;
         }
 
-        [Authorize(Roles = "Administrator")]
         public IQueryable<NarudzbaCollection> GenerisiNarudzbe()
         {
             NarudzbaIndexVM model = new NarudzbaIndexVM()
@@ -68,7 +66,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public IActionResult Index(int? orderBy, int page = 1)
+        public async Task<IActionResult> Index(int? orderBy, int page = 1)
         {
 
             if (orderBy != null)
@@ -80,20 +78,16 @@ namespace OnlineShop.Areas.Administrator.Controllers
             // Prikaz svih narudzbi
             if (filter == 0)        
                 query = narudzbe
-                    .OrderByDescending(k => k.narudzba.DatumKreiranjaNarudzbe);
+                    .OrderBy(k => k.narudzba.DatumKreiranjaNarudzbe);
 
             // Prikaz aktivnih narudzbi
             else if (filter == 1)
                 query = narudzbe.Where(k => k.narudzba.Aktivna == true)
-                    .OrderByDescending(k => k.narudzba.DatumKreiranjaNarudzbe);
+                    .OrderBy(k => k.narudzba.DatumKreiranjaNarudzbe);
 
             // Prikaz neaktivnih narudzbi
             else if (filter == 2)
                 query = narudzbe.Where(k => !k.narudzba.Aktivna);
-
-            // Prikaz aktivnih nepotvrđenih narudzbi
-            else if (filter == 3)
-                query = narudzbe.Where(k => k.narudzba.Aktivna && !k.narudzba.Potvrdjena);
 
             else
                 query = narudzbe.OrderBy(k => k.narudzba.Id);
