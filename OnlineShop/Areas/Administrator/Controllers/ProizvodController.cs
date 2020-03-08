@@ -232,6 +232,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(model);
             
         }
+
+        [Authorize(Roles = "Administrator")]
         public async Task<bool> DodajKategoriju(string kategorija)
         {
             if (kategorija != null)
@@ -244,6 +246,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 return false;
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<bool> DodajDobavljaca(string naziv, string adresa, string kontakt)
         {
             if (naziv != null && adresa != null && kontakt != null)
@@ -261,6 +264,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return false;
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult DodajUvoznika()
         {
             UvoznikVM model = new UvoznikVM()
@@ -270,6 +274,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<bool> SnimiUvoznika(Uvoznik uvoznik)
         {
             _context.Uvoznik.Add(uvoznik);

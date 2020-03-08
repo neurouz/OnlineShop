@@ -138,3 +138,7 @@
 .box:hover {
     text-decoration: none;
 }
+
+#naziv-dostave, #adresa-dostave, #kontakt-telefon {
+    margin-top: 5px;
+}

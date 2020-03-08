@@ -54,7 +54,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> NarudzbaPartial(int? godina)
+        public IActionResult NarudzbaPartial(int? godina)
         {
             StatistikaNarudzbeVM model = new StatistikaNarudzbeVM()
             {
