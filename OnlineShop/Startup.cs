@@ -31,7 +31,7 @@ namespace OnlineShop
             services.AddControllersWithViews();
 
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("connectionpc")));
+                options.UseSqlServer(Configuration.GetConnectionString("plesk")));
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {
