@@ -45,16 +45,26 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> SnimiPost(Post post, IFormFile slika)
         {
+
+            post.DatumObjave = DateTime.Now;
+            _context.Post.Add(post);
+            _context.SaveChanges();
+
             if (slika != null)
             {
                 if (slika.Length > 0)
                 {
                     var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
-                    await using (var stream = new FileStream(Path.Combine(path, slika.FileName), FileMode.Create))
+                    var filename = "Oglas-" + _context.Post
+                        .Where(x => x.Id == post.Id)
+                        .FirstOrDefault().Id.ToString() +
+                        Path.GetExtension(slika.FileName);
+
+                    await using (var stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
                     {
                         await slika.CopyToAsync(stream);
                     }
-                    post.ImageLocation = "/pictures/oglasi/" + slika.FileName;
+                    post.ImageLocation = "/pictures/oglasi/" + filename;
                 }
             }
             else
@@ -62,8 +72,6 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 post.ImageLocation = "/pictures/oglasi/no_image_post.png";
             }
 
-            post.DatumObjave = DateTime.Now;
-            _context.Post.Add(post);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Post");
@@ -77,6 +85,17 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             if (post == null)
                 return NotFound();
+
+            var extension_delete = Path
+                .GetExtension(post.ImageLocation);
+
+            var path_delete = _hostingEnvironment.WebRootPath
+                + "\\pictures\\oglasi\\" + "Oglas-" + id + extension_delete;
+
+            if (System.IO.File.Exists(path_delete))
+            {
+                System.IO.File.Delete(path_delete);
+            }
 
             _context.Post.Remove(post);
             await _context.SaveChangesAsync();
@@ -96,7 +115,6 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> SpasiPromjene(EditPostVM model, IFormFile slika)
         {
-
             Post p = await _context.Post.FindAsync(model.postEdit.Id);
             p.AutorId = model.postEdit.AutorId;
             p.DatumObjave = DateTime.Now;
@@ -107,12 +125,27 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 if (slika.Length > 0)
                 {
+
+                    var extension_delete = Path.GetExtension(p.ImageLocation);
+                    var path_delete = _hostingEnvironment.WebRootPath
+                        + "\\pictures\\oglasi\\" + "Oglas-" + model.postEdit.Id + extension_delete;
+
+                    if (System.IO.File.Exists(path_delete))
+                    {
+                        System.IO.File.Delete(path_delete);
+                    }
+
                     var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
-                    await using (var stream = new FileStream(Path.Combine(path, slika.FileName), FileMode.Create))
+                    var filename = "Oglas-" + _context.Post
+                        .Where(x => x.Id == model.postEdit.Id)
+                        .FirstOrDefault().Id.ToString() +
+                        Path.GetExtension(slika.FileName);
+
+                    await using (var stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
                     {
                         await slika.CopyToAsync(stream);
                     }
-                    p.ImageLocation = "/pictures/oglasi/" + slika.FileName;
+                    p.ImageLocation = "/pictures/oglasi/" + filename;
                 }
             }
 

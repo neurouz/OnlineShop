@@ -47,15 +47,16 @@
 </head>
 <body>
 
+    <div class="navbar-brand">
+        <a id="btn-burger" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width:80%; margin-left: 300px; top: 0; position:fixed;">
-        <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/icons/logo.jpg"></a>
-        <div class="navbar-brand">
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
+        <a id="logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/icons/logo.jpg"></a>
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
@@ -212,7 +213,7 @@
                                 </div>
                                 <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                                     <div class="dropdown-content flex-content">
-                                        <input id="kategorija-input" type="text" class="input is-success" placeholder="Naziv kategorije"/>
+                                        <input id="kategorija-input" type="text" class="input is-success" placeholder="Naziv kategorije" />
                                         <br />
                                         <button class="button is-primary" id="kategorija-button"> Snimi </button>
                                         <small id="result-kategorija">
@@ -365,26 +366,45 @@
 </html>
 
 <script>
-    $("#toggler").on("click", function (event) {
-        if ($("#sidebar").hasClass("sidebar-visible")) {
-            $("#sidebar").removeClass("sidebar-visible");
-            $("#sidebar").addClass("sidebar-hidden");
-            $("#toggler>i").css("transform", "rotate(180deg)");
-            $(".not-layout").css("left", "0px");
-            $(".not-layout").css("width", "100%");
-            $(".not-layout-users").css("left", "0px");
-            $(".not-layout-users").css("width", "100%");
-        }
-        else {
-            $("#sidebar").removeClass("sidebar-hidden");
-            $("#sidebar").addClass("sidebar-visible");
-            $("#toggler>i").css("transform", "rotate(0deg)");
-            $(".not-layout").css("left", "250px");
-            $(".not-layout").css("width", "80%");
-            $(".not-layout-users").css("left", "170px");
-            $(".not-layout-users").css("width", "95%");
-        }
-    });
+    if ($(document).width() <= 1000) {
+        $("#sidebar").removeClass("sidebar-visible");
+        $("#sidebar").addClass("sidebar-hidden");
+        $("#toggler>i").css("transform", "rotate(180deg)");
+        $("#toggler").on("click", function (event) {
+            if ($("#sidebar").hasClass("sidebar-visible")) {
+                $("#sidebar").removeClass("sidebar-visible");
+                $("#sidebar").addClass("sidebar-hidden");
+                $("#toggler>i").css("transform", "rotate(180deg)");
+            }
+            else {
+                $("#sidebar").removeClass("sidebar-hidden");
+                $("#sidebar").addClass("sidebar-visible");
+                $("#toggler>i").css("transform", "rotate(0deg)");
+            }
+        });
+    }
+    else {
+        $("#toggler").on("click", function (event) {
+            if ($("#sidebar").hasClass("sidebar-visible")) {
+                $("#sidebar").removeClass("sidebar-visible");
+                $("#sidebar").addClass("sidebar-hidden");
+                $("#toggler>i").css("transform", "rotate(180deg)");
+                $(".not-layout").css("left", "0px");
+                $(".not-layout").css("width", "100%");
+                $(".not-layout-users").css("left", "0px");
+                $(".not-layout-users").css("width", "100%");
+            }
+            else {
+                $("#sidebar").removeClass("sidebar-hidden");
+                $("#sidebar").addClass("sidebar-visible");
+                $("#toggler>i").css("transform", "rotate(0deg)");
+                $(".not-layout").css("left", "250px");
+                $(".not-layout").css("width", "80%");
+                $(".not-layout-users").css("left", "170px");
+                $(".not-layout-users").css("width", "95%");
+            }
+        });
+    }
 </script>
 
 <script>

@@ -12,6 +12,7 @@
     overflow-y: scroll !important;
     transition: all .4s;
     z-index:200000;
+    background-color: white;
 }
 
 .admin-sidebar::-webkit-scrollbar{
@@ -115,6 +116,20 @@
 .kontent {
     display: flex;
     flex-direction: row;
+    /*flex-flow:column;*/
+}
+
+@media(max-width: 1000px){
+    .kontent{ flex-flow: column;}
+    #logo, .navbar{
+        display:none;
+    }
+    .not-layout {
+        position: relative;
+        left: 0;
+        top: 20px;
+        width: 100%;
+    }
 }
 
 .black {

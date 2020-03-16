@@ -88,7 +88,7 @@
                     <div class="control">
                         <div class="select">
                             <select class="form-control" asp-for="proizvodEdit.ProizvodjacId">
-                                <option selected value="@Model.proizvodEdit.ProizvodjacId"> @Model.proizvodEdit.NazivProizvoda </option>
+                                <option selected value="@Model.proizvodEdit.ProizvodjacId"> @Model.proizvodEdit.Proizvodjac.NazivProizvodjaca </option>
                                 @foreach (var proizvodjac in Model.proizvodjaci)
                                 {
                                     <option value="@proizvodjac.Id"> @proizvodjac.NazivProizvodjaca </option>
@@ -113,7 +113,7 @@
                             </span>
                         </span>
                         <span class="file-name" id="file-name-product">
-                            @Model.proizvodEdit.imageLocation
+                            @Model.proizvodEdit.imageLocation.Replace("/pictures/", "")
                         </span>
                     </label>
                     <span style="display: flex; align-items: center; justify-content: center; margin-left: 20px; color: darkblue">

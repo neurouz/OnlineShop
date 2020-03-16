@@ -33,6 +33,34 @@
 .kupci-top3 {
     display: flex;
     flex-direction: row;
+    
+}
+
+@media(max-width: 1000px){
+    .kupci-top3 {
+        flex-flow: column;
+    }
+    .tile:nth-child(1){
+        order: 2;
+    }
+    .tile:nth-child(2) {
+        order: 1;
+    }
+    .tile:nth-child(3) {
+        order: 3;
+    }
+    #prvi{
+        transform: scale(1);
+    }
+    #prvi:hover {
+        transform: scale(1.15);
+    }
+    .product-rang {
+        flex-flow: column;
+    }
+    .product-rang-title{
+        display: none;
+    }
 }
 
 .kupac {
@@ -44,13 +72,11 @@
 
 .kupac > p {
     text-align: center;
-
 }
 
 .kupac>p:nth-child(1) {
     font-size: 60px;
 }
-
 
 .kupci-top3>.tile:nth-child(1)>.kupac {
     background-color: lightblue;

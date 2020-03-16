@@ -124,14 +124,23 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> DodajNoviProizvodv2(Proizvod proizvod, IFormFile slikaProizvoda)
         {
+
+            _context.Proizvod.Add(proizvod);
+            _context.SaveChanges();
+
             if (slikaProizvoda != null)
             {
                 if (slikaProizvoda.Length > 0)
                 {
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures";
-                    proizvod.imageLocation = "/pictures/" + slikaProizvoda.FileName;
+                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+                    var filename = "Proizvod-" + _context.Proizvod
+                        .Where(x => x.ProizvodID == proizvod.ProizvodID)
+                        .FirstOrDefault().ProizvodID.ToString() + 
+                        Path.GetExtension(slikaProizvoda.FileName);
 
-                    using (var stream = new FileStream(Path.Combine(path, slikaProizvoda.FileName), FileMode.Create))
+                    proizvod.imageLocation = "/pictures/proizvodi/" + filename;
+
+                    using (var stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
                     {
                         await slikaProizvoda.CopyToAsync(stream);
                     }
@@ -142,7 +151,6 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 proizvod.imageLocation = "/pictures/no_image.svg";
             }
 
-            _context.Proizvod.Add(proizvod);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -151,7 +159,18 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult UkloniProizvod(int id)
         {
-            Proizvod p = new Proizvod() { ProizvodID = id };
+            Proizvod p = _context.Proizvod.Where(x => x.ProizvodID == id).SingleOrDefault();
+
+            var extension_delete = Path
+                .GetExtension(p.imageLocation);
+
+            var path_delete = _hostingEnvironment.WebRootPath
+                + "\\pictures\\proizvodi\\" + "Proizvod-" + id + extension_delete;
+
+            if (System.IO.File.Exists(path_delete))
+            {
+                System.IO.File.Delete(path_delete);
+            }
 
             List<Recenzija> rec = _context.Recenzija
                 .Where(x => x.ProizvodId == id).ToList();
@@ -203,10 +222,25 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 if (mdl.slikaProizvoda.Length > 0)
                 {
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures";
-                    p.imageLocation = "/pictures/" + mdl.slikaProizvoda.FileName;
+                    var extension_delete = Path.GetExtension(mdl.proizvodEdit.imageLocation);
+                    var path_delete = _hostingEnvironment.WebRootPath 
+                        + "\\pictures\\proizvodi\\" + mdl.proizvodEdit.ProizvodID + extension_delete;
 
-                    using (var stream = new FileStream(Path.Combine(path, mdl.slikaProizvoda.FileName), FileMode.Create))
+                    if (System.IO.File.Exists(path_delete))
+                    {
+                        System.IO.File.Delete(path_delete);
+                    }
+
+                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+
+                    var filename = "Proizvod-" + _context.Proizvod
+                        .Where(x => x.ProizvodID == mdl.proizvodEdit.ProizvodID)
+                        .FirstOrDefault().ProizvodID.ToString() +
+                        Path.GetExtension(mdl.slikaProizvoda.FileName);
+
+                    p.imageLocation = "/pictures/proizvodi/" + filename;
+
+                    using (var stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
                     {
                         await mdl.slikaProizvoda.CopyToAsync(stream);
                     }
