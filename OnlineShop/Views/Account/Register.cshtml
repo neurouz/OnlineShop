@@ -4,11 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
 
 <link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
 <h4 class="title is-4">Registruj se</h4>
@@ -138,7 +139,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="field is-horizontal">
         <div class="field-label is-normal">
 
@@ -153,24 +154,24 @@
 
 
 
-        <div class="field is-horizontal">
-            <div class="field-label">
-                <!-- Left empty for spacing -->
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <input type="submit" value="Registracija" class="button is-primary" id="btnRegister" />
-                    </div>
+    <div class="field is-horizontal">
+        <div class="field-label">
+            <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input type="submit" value="Registracija" class="button is-primary" id="btnRegister" />
                 </div>
             </div>
         </div>
+    </div>
 </form>
 
 
 
 <script>
-    
+
     $(function () {
         $("#reg").validate({
             rules: {
@@ -219,10 +220,10 @@
             submitHandler: function (form) {
                 form.submit();
             },
-            highlight: function(element, errorClass, validClass) {
+            highlight: function (element, errorClass, validClass) {
                 return false;
             },
-            unhighlight: function(element, errorClass, validClass) {
+            unhighlight: function (element, errorClass, validClass) {
                 return false;
             }
         });
@@ -246,7 +247,7 @@
             type: "GET",
             async: true,
             url: '/Account/CheckUserName',
-            data: { "Username" :  x },
+            data: { "Username": x },
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 if (response != "0") {
@@ -273,7 +274,7 @@
             type: "GET",
             async: true,
             url: '/Account/CheckEmail',
-            data: { "Email" :  x },
+            data: { "Email": x },
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 if (response != 0) {
