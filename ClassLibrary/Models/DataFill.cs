@@ -39,34 +39,34 @@ namespace ClassLibrary.Models
 
                 postovi.Add(new Post()
                 {
-                    Naslov = "Title 1",
-                    Sadrzaj = "Ovo je sadrzaj posta 1",
+                    Naslov = ".NET Core Explained!",
+                    Sadrzaj = "Content of .NET Core should be added",
                     AutorId = 1,
-                    ImageLocation = "~/"
+                    ImageLocation = "/pictures/oglasi/Oglas-1.png"
                 });
 
                 postovi.Add(new Post()
                 {
-                    Naslov = "Title 2",
-                    Sadrzaj = "Ovo je sadrzaj posta 2",
+                    Naslov = "RAM - Everything you need to know",
+                    Sadrzaj = "Content of post should be added",
                     AutorId = 1,
-                    ImageLocation = "~/"
+                    ImageLocation = "/pictures/oglasi/Oglas-2.png"
                 });
 
                 postovi.Add(new Post()
                 {
-                    Naslov = "Title 3",
-                    Sadrzaj = "Ovo je sadrzaj posta 3",
+                    Naslov = "Microsoft SQL Server",
+                    Sadrzaj = "Content of SQL Server post should be added",
                     AutorId = 1,
-                    ImageLocation = "~/"
+                    ImageLocation = "/pictures/oglasi/Oglas-3.png"
                 });
 
                 postovi.Add(new Post()
                 {
-                    Naslov = "Title 4",
-                    Sadrzaj = "Ovo je sadrzaj posta 4",
+                    Naslov = "Bulma CSS Framework - Better than Bootstrap!?",
+                    Sadrzaj = "Content of Bulma post should be added",
                     AutorId = 1,
-                    ImageLocation = "~/"
+                    ImageLocation = "/pictures/oglasi/Oglas-4.png"
                 });
 
                 _context.Post.AddRange(postovi);
@@ -314,39 +314,39 @@ namespace ClassLibrary.Models
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "HP Laptop",
+                    NazivProizvoda = "DELL Laptop",
                     Cijena = 859.99,
                     Kolicina = 8,
                     uvoznikId = 1,
                     kategorijaId = 3,
                     OpisProizvoda = "Mnogo dobar laptop, nemam rijeci zaista.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-2.jpg",
                     ProizvodjacId = 1
                 });
                 _context.SaveChanges();
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "DELL Laptop",
+                    NazivProizvoda = "Apple All-In-One",
                     Cijena = 954.99,
                     Kolicina = 12,
                     uvoznikId = 3,
                     kategorijaId = 2,
-                    OpisProizvoda = "Mnogo dobar laptop, nemam rijeci zaista.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    OpisProizvoda = "Very good product",
+                    imageLocation = "/pictures/proizvodi/Proizvod-1.jpg",
                     ProizvodjacId = 2
                 });
                 _context.SaveChanges();
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "Canyon Slušalice",
+                    NazivProizvoda = "Canyon Headphones",
                     Cijena = 59.99,
                     Kolicina = 25,
                     uvoznikId = 4,
                     kategorijaId = 5,
                     OpisProizvoda = "Slusalice Headhunterz hi koristio.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-3.jpg",
                     ProizvodjacId = 2
                 });
                 _context.SaveChanges();
@@ -359,20 +359,20 @@ namespace ClassLibrary.Models
                     uvoznikId = 6,
                     kategorijaId = 7,
                     OpisProizvoda = "60 Herca drama dobar",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-4.jpg",
                     ProizvodjacId = 1
                 });
                 _context.SaveChanges();
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "iPhone Slušalice",
+                    NazivProizvoda = "STYLE Headphones *NEW*",
                     Cijena = 112.49,
                     Kolicina = 60,
                     uvoznikId = 1,
                     kategorijaId = 7,
                     OpisProizvoda = "Slusalice za ajfon",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-5.png",
                     ProizvodjacId = 1
                 });
                 _context.SaveChanges();
@@ -385,7 +385,7 @@ namespace ClassLibrary.Models
                     uvoznikId = 8,
                     kategorijaId = 9,
                     OpisProizvoda = "Graficka za najnovije igre!",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-6.jpg",
                     ProizvodjacId = 3
                 });
                 _context.SaveChanges();
@@ -398,7 +398,7 @@ namespace ClassLibrary.Models
                     uvoznikId = 5,
                     kategorijaId = 9,
                     OpisProizvoda = "Brrrrzzzzzzina.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-7.jpg",
                     ProizvodjacId = 3
                 });
                 _context.SaveChanges();
@@ -411,20 +411,20 @@ namespace ClassLibrary.Models
                     uvoznikId = 3,
                     kategorijaId = 3,
                     OpisProizvoda = "Up to 4.4GHz",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-8.webp",
                     ProizvodjacId = 4
                 });
                 _context.SaveChanges();
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "RIOTORO Napojna 600W",
+                    NazivProizvoda = "RIOTORO PSU 600W",
                     Cijena = 100,
                     Kolicina = 9,
                     uvoznikId = 4,
                     kategorijaId = 1,
                     OpisProizvoda = "Napaja sve moguce i nemoguce.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-9.png",
                     ProizvodjacId = 4
                 });
                 _context.SaveChanges();
@@ -437,20 +437,20 @@ namespace ClassLibrary.Models
                     uvoznikId = 4,
                     kategorijaId = 8,
                     OpisProizvoda = "RGB LED Cooler za procesor.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-10.jpg",
                     ProizvodjacId = 5
                 });
                 _context.SaveChanges();
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "Bežična tastatura",
+                    NazivProizvoda = "Wireless Keyboard",
                     Cijena = 34.90,
                     Kolicina = 14,
                     uvoznikId = 2,
                     kategorijaId = 9,
                     OpisProizvoda = "Bežična tastatura sa žicama.",
-                    imageLocation = "/pictures/slika-" + brojSlike++ + ".jpg",
+                    imageLocation = "/pictures/proizvodi/Proizvod-11.jpg",
                     ProizvodjacId = 5
                 });
                 _context.SaveChanges();
@@ -550,7 +550,7 @@ namespace ClassLibrary.Models
                     var korisnik1 = new AppUser();
 
                     korisnik1.UserName = "Korisnik-1";
-                    korisnik1.Email = "k1_mail@gmail.com";
+                    korisnik1.Email = "ajdin.hukara@edu.fit.ba";
                     korisnik1.EmailConfirmed = false;
                     korisnik1.DatumRegistracije = DateTime.Now;
                     korisnik1.Ime = "Korisnik 1";
@@ -563,7 +563,7 @@ namespace ClassLibrary.Models
                     var korisnik2 = new AppUser();
 
                     korisnik2.UserName = "Korisnik-2";
-                    korisnik2.Email = "k2_mail@gmail.com";
+                    korisnik2.Email = "ajdin.hukara@gmail.com";
                     korisnik2.EmailConfirmed = false;
                     korisnik2.DatumRegistracije = DateTime.Now;
                     korisnik2.Ime = "Korisnik 2";

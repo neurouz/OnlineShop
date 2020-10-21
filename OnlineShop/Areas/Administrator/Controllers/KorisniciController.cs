@@ -87,7 +87,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 foreach (var korisnik in await userMgr.GetUsersInRoleAsync("Korisnik"))
                 {
-                    if(korisnik.Id == 1002 || korisnik.Id == 22995)
+                    //if(korisnik.Id == 1002 || korisnik.Id == 22995)
                         PosaljiPoruku(korisnik, text, title);
                 }
 

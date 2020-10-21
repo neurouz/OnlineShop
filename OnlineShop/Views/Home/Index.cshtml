@@ -40,7 +40,18 @@
                                         </div>
                                         <div class="card-content">
                                             <div class="media-content">
-                                                <p class="title is-4"> @Model.proizvodi.ElementAt(count).NazivProizvoda </p>
+                                                <p class="title is-4">
+                                                    @{
+                                                        if (Model.proizvodi.ElementAt(count).NazivProizvoda.Length >= 22)
+                                                        {
+                                                            @(Model.proizvodi.ElementAt(count).NazivProizvoda.Substring(0, 22) + "..")
+                                                        }
+                                                        else
+                                                        {
+                                                            @Model.proizvodi.ElementAt(count).NazivProizvoda
+                                                        }
+                                                    }
+                                                </p>
                                                 @if (@Model.proizvodi.ElementAt(count).snizen)
                                                 {
                                                     <p class="subtitle is-6">

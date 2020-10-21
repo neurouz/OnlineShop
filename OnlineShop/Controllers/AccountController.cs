@@ -281,7 +281,7 @@ namespace OnlineShop.Controllers
                 var korisnik1 = new AppUser();
 
                 korisnik1.UserName = "Korisnik-1";
-                korisnik1.Email = "k1_mail@gmail.com";
+                korisnik1.Email = "ajdin.hukara@gmail.com";
                 korisnik1.EmailConfirmed = false;
                 korisnik1.DatumRegistracije = DateTime.Now;
                 korisnik1.Ime = "Korisnik 1";
