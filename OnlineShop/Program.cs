@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -34,11 +35,11 @@ namespace OnlineShop
                     task.Wait();
 
                     Console.WriteLine("Users added");
-
-                    if (DataFill.LoadData(context) && DataFill.LoadOglasi(context))
-                    {
-                        Console.WriteLine("Data added");
-                    }
+                    if(!context.Proizvod.Any())
+                        if (DataFill.LoadData(context) && DataFill.LoadOglasi(context))
+                        {
+                            Console.WriteLine("Data added");
+                        }
                 }
                 catch (Exception e)
                 {

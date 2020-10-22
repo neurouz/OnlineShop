@@ -327,7 +327,7 @@ namespace ClassLibrary.Models
 
                 _context.Proizvod.Add(new Proizvod()
                 {
-                    NazivProizvoda = "Apple All-In-One",
+                    NazivProizvoda = "Apple iMac",
                     Cijena = 954.99,
                     Kolicina = 12,
                     uvoznikId = 3,

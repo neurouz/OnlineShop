@@ -65,27 +65,14 @@
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable" id="proizvodi">
-                    <a class="navbar-link">
-                        Proizvodi
-                    </a>
+            <a class="navbar-link">
+                Proizvodi
+            </a>
 
                     <div class="navbar-dropdown" id="proizvodlist">
-                        <a class="navbar-item">
-                            Kategorija 1
-                        </a>
-                        <a class="navbar-item">
-                            Kategorija 2
-                        </a>
-                        <a class="navbar-item">
-                            Kategorija 3
-                        </a>
-                        <hr class="navbar-divider">
-                        <a class="navbar-item">
-                            Pregledaj sve
-                        </a>
+                        
                     </div>
-                </div>
-
+        </div>
                 <a class="navbar-item">
                     Oglasi
                 </a>
@@ -95,8 +82,6 @@
                 </a>
 
             </div>
-
-
 
             @if (User.Identity.IsAuthenticated)
             {
@@ -216,5 +201,10 @@
             $('#navbar-menu-id').addClass('is-active');
         }
     });
+
+    $.get("/Home/ProductCategoryPartial",
+        function(data) {
+            $("#proizvodlist").append(data);
+        });
 
 </script>

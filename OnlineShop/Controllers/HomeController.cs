@@ -42,5 +42,12 @@ namespace OnlineShop.Controllers
             return Content("Podaci su obrisani. Ako želite ponovo generisati podatke, morate obrisati bazu i ponovo uraditi migracije i update.");
 
         }
+
+        public IActionResult ProductCategoryPartial()
+        {
+            var model = context.Kategorija.ToList();
+            ViewBag.BrojKolona = (int)Math.Ceiling((double) model.Count / 5);
+            return PartialView(model);
+        }
     }
 }

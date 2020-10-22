@@ -1,0 +1,29 @@
+﻿@model List<ClassLibrary.Models.Kategorija>
+@*
+    
+*@
+@{
+    var trenutno = 0;
+}
+
+    <table>
+
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                @for (int j = 0; j < ViewBag.BrojKolona; j++)
+                {
+                    if (trenutno == Model.Count())
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        <td> <a href="#" class="dropdown-item"> @Model[trenutno++].NazivKategorije </a> </td>
+                    }
+                }
+            </tr>
+        }
+
+    </table>
