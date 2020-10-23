@@ -20,10 +20,12 @@
                     else
                     {
 
-                        <td> <a href="#" class="dropdown-item"> @Model[trenutno++].NazivKategorije </a> </td>
+                        <td> <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-categoryId="@Model[trenutno].KategorijaID" class="dropdown-item"> @Model[trenutno++].NazivKategorije </a> </td>
                     }
                 }
             </tr>
         }
 
     </table>
+    <hr class="dropdown-divider">
+    <a asp-area="" asp-controller="Product" asp-action="Index"  class="dropdown-item text-center"> Prikaži sve </a>

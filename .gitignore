@@ -14,7 +14,7 @@
 *.userprefs
 
 # Migrations folder za bazu podataka
-ClassLibrary/Migrations/
+# ClassLibrary/Migrations/
 
 #appsettings fajl
 *.appsettings
