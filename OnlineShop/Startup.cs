@@ -44,6 +44,8 @@ namespace OnlineShop
 
             services.AddPaging(options => 
                 options.ViewName="Bootstrap4");
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

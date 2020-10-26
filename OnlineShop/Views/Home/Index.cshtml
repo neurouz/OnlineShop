@@ -15,7 +15,6 @@
 
 <!-------------------------------------------------------------------------------------------------->
 
-
 @if (Model.proizvodi != null && Model.proizvodi.Count >= 9)
 {
     <h4 class="title is-5"> Izdvojeni artikli </h4>
@@ -74,11 +73,11 @@
                                         </div>
                                         <footer class="card-footer">
                                             <a href="#" class="button is-link is-rounded is-inverted card-footer-item">Pogledaj detaljno</a>
-                                            <a href="#" class="button is-link is-rounded card-footer-item">
+                                            <a href="#" class="button is-link is-rounded card-footer-item cart-button">
                                                 <span class="icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </span>
-                                                <span>Naruči</span>
+                                                <span>Dodaj u korpu</span>
                                             </a>
                                         </footer>
                                     </div>
@@ -247,4 +246,5 @@
         console.log(n[i].textContent);
         n[i].innerHTML = n[i].textContent.replace("\"", "");
     }
+
 </script>

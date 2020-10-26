@@ -23,79 +23,99 @@
         margin-top: -20px;
     }
     .product-rang:hover{
-        transform: scale(1.05);
+        transform: scale(1.02);
         transition-duration: .2s;
     }
 </style>
+
 <link rel="stylesheet" href="~/css/StatistikaIndex.css" />
+<link rel="stylesheet" href="~/css/ProizvodModalBox.css"/>
 
-    <h4 class="text-center title is-4"> Proizvodi </h4>
-    <div class="not-layout flexible">
-        @foreach (var product in Model)
-        {
-            <div class="product-rang">
-                <div>
-                    <div class="card kartica" style="transform: scale(0.9); margin: auto; border: none">
-                        <div class="card-image">
-                            <figure class="image is-4by3" style="transform:scale(0.8)">
-                                <img class="card-image" src="@product.imageLocation" />
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media-content">
-                                <p class="title is-4">
-                                    <a style="text-decoration: none" asp-controller="Proizvod" asp-action="Detaljno" asp-route-id="@product.ProizvodID">
-                                        @{
-                                            if (product.NazivProizvoda.Length >= 17)
-                                            {
-                                                @(product.NazivProizvoda.Substring(0, 17) + "..")
-                                            }
-                                            else
-                                            {
-                                                @product.NazivProizvoda
-                                            }
+<div class="notification is-success" id="added-to-cart">
+    <p style="text-align: center">Artikal dodan u korpu</p>
+</div>
+
+<h4 class="text-center title is-4"> Proizvodi </h4>
+<div class="not-layout flexible">
+    @foreach (var product in Model)
+    {
+        <div class="product-rang">
+            <div>
+                <div class="card kartica" style="transform: scale(0.9); margin: auto; border: none">
+                    <div class="card-image">
+                        <figure class="image is-4by3" style="transform:scale(0.8)">
+                            <img class="card-image" src="@product.imageLocation" />
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media-content">
+                            <p class="title is-4">
+                                <a style="text-decoration: none" asp-controller="Proizvod" asp-action="Detaljno" asp-route-id="@product.ProizvodID">
+                                    @{
+                                        if (product.NazivProizvoda.Length >= 15)
+                                        {
+                                            @(product.NazivProizvoda.Substring(0, 15) + "..")
                                         }
-                                    </a>
-                                </p>
-                                @if (product.snizen)
-                                {
-                                    <p class="subtitle is-6">
-                                        Cijena: @product.Cijena KM
+                                        else
+                                        {
+                                            @product.NazivProizvoda
+                                        }
+                                    }
+                                </a>
+                            </p>
+                            @if (product.snizen)
+                            {
+                                <p class="subtitle is-6">
+                                    Cijena: @product.Cijena KM
 
-                                        <span class="text-success media-right is-3"> <b> SNIŽENO! </b></span>
-                                    </p>
-                                }
-                                else
-                                {
-                                    <div class="subtitle is-6">
-                                        Cijena: @product.Cijena KM
-                                    </div>
-                                }
-                                <p>
-                                    <div class="subtitle is-6 kolicina">
-                                        Na stanju: @product.Kolicina
-                                    </div>
+                                    <span class="text-success media-right is-3"> <b> SNIŽENO! </b></span>
                                 </p>
-                            </div>
-
+                            }
+                            else
+                            {
+                                <div class="subtitle is-6">
+                                    Cijena: @product.Cijena KM
+                                </div>
+                            }
+                            <p>
+                                <div class="subtitle is-6 kolicina">
+                                    Na stanju: @product.Kolicina
+                                </div>
+                            </p>
                         </div>
-                        @*<footer class="card-footer">
-                            <p class=" is-3 is-rounded is-inverted card-footer-item"> <b> @product.Kolicina komada na stanju </b> </p>
-                        </footer>*@
+
+                    </div>
                     <footer class="card-footer">
-                        <a href="#" class="button is-link is-rounded is-inverted card-footer-item">Detalji</a>
+                        <a href="#" class="button is-rounded card-footer-item footer-details">Detalji</a>
                         @if (User.IsInRole("Korisnik"))
                         {
-                            <a href="#" class="button is-link is-rounded card-footer-item">
+                            <button value="@product.ProizvodID" class="button is-link is-rounded card-footer-item cart-button">
                                 <span class="icon">
                                     <i class="fas fa-shopping-cart"></i>
                                 </span>
-                                <span>Naruči</span>
-                            </a>
+                                <span>Korpa</span>
+                            </button>
                         }
                     </footer>
-                    </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>
+    
+<script>
+    var elements = document.getElementsByClassName("cart-button");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",
+            function(e) {
+                var popup = document.getElementById("added-to-cart");
+                popup.classList.toggle("animation");
+                setTimeout(function() {
+                    popup.classList.toggle("animation");
+                }, 1500);
+
+                $.post("/Product/AppendToCart", { productId: $(elements[i]).attr("value") });
+                console.log($(elements[i]).attr("value"));
+            });
+    }
+</script>
