@@ -1,0 +1,80 @@
+﻿@model List<OnlineShop.ViewModels.NarudzbaCollection>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/NarudzbaIndex.css" />
+<link rel="stylesheet" href="~/css/OrderStyles.css" />
+
+<h1 class="title is-2 text-center"> Vaše narudžbe </h1>
+<br />
+
+@foreach (var narudzba in Model)
+{
+    <br />
+    <br />
+    <br />
+    @if (narudzba._container.Proizvodi.Count == 0) continue;
+    <div class="content-top">
+        <div class="info-left">
+            <p> Narudzba ID: <b> @narudzba.narudzba.Id </b> </p>
+            <p> Datum kreiranja: @narudzba.narudzba.DatumKreiranjaNarudzbe.ToString("dd/MM/yyyy") </p>
+        </div>
+        <div class="info-right">
+            @if (narudzba.narudzba.Potvrdjena)
+            {
+                <div class="">
+                    <p class="button is-success"> Potvrđena </p>
+                </div>
+            }
+            else
+            {
+                <div class="">
+                    <p class="button is-warning"> Aktivna </p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <table class="table is-bordered tabela">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID Proizvoda</th>
+                <th>Naziv Proizvoda</th>
+                <th>Cijena (kom)</th>
+                <th>Uvoznik</th>
+                <th>Količina</th>
+                <th>Ukupno</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < narudzba._container.Proizvodi.Count; i++)
+            {
+                var product = narudzba._container.Proizvodi[i];
+                var sum = narudzba._container.Sume[i];
+                var quantity = narudzba._container.Kolicine[i];
+                <tr>
+                    <td>@product.ProizvodID</td>
+                    <td> <a asp-controller="Proizvod" asp-action="Detaljno" asp-route-id="@product.ProizvodID"> @product.NazivProizvoda </a> </td>
+                    <td>@product.Cijena KM</td>
+                    <td>@product.uvoznik.NazivUvoznika</td>
+                    <td>@quantity</td>
+                    <td> @Math.Round(sum, 2) KM </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align: right"> Ukupan iznos </td>
+                <td style="color: white; background-color: rgba(55, 55, 55, 0.5); text-align:center"> <b> @narudzba.UkupnaCijena KM </b> </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+}

@@ -44,19 +44,5 @@ namespace OnlineShop.Controllers
 
             return View(model);
         }
-
-        public void AppendToCart(int productId)
-        {
-            CookieOptions options = new CookieOptions(){ Expires = DateTime.Now.AddMinutes(30) };
-            var cookies = Request.Cookies["product"];
-
-            if (cookies != null)
-            {
-                cookies += "_" + productId;
-                Response.Cookies.Append("product", cookies);
-            }
-            else
-                Response.Cookies.Append("product", productId.ToString());
-        }
     }
 }

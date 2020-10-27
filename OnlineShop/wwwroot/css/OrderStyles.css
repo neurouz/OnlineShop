@@ -1,0 +1,10 @@
+﻿.content-top{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.info-left{
+    font-size: 20px;
+}

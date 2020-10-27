@@ -1,0 +1,55 @@
+﻿#cart-preview {
+    position: fixed;
+    width: 60%;
+    height: 600px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 201;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 5px 20px rgb(180, 178, 178);
+    visibility: hidden;
+}
+
+#container{
+    margin-top: 50px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#zatvoribtn{
+    color: white;
+    margin-left: 0;
+}
+
+#buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -15px;
+}
+
+#potvrdibtn {
+    color: white;
+}
+
+#scroll, .table>tbody{
+    overflow: scroll;
+    height: 400px;
+}
+
+#scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.toast {
+    opacity: 1 !important;
+}
+
+#toast-container > div {
+    opacity: 1 !important;
+}
