@@ -17,7 +17,7 @@
     <br />
     <br />
     <br />
-    @if (narudzba._container.Proizvodi.Count == 0) continue;
+    @if (narudzba._container.Proizvodi.Count == 0) {continue;}
     <div class="content-top">
         <div class="info-left">
             <p> Narudzba ID: <b> @narudzba.narudzba.Id </b> </p>
@@ -26,13 +26,13 @@
         <div class="info-right">
             @if (narudzba.narudzba.Potvrdjena)
             {
-                <div class="">
+                <div class="status-button">
                     <p class="button is-success"> Potvrđena </p>
                 </div>
             }
             else
             {
-                <div class="">
+                <div class="status-button">
                     <p class="button is-warning"> Aktivna </p>
                 </div>
             }
@@ -42,7 +42,7 @@
     <table class="table is-bordered tabela">
         <thead class="thead-dark">
             <tr>
-                <th>ID Proizvoda</th>
+                <th style="width: 20px">ID</th>
                 <th>Naziv Proizvoda</th>
                 <th>Cijena (kom)</th>
                 <th>Uvoznik</th>
@@ -70,7 +70,7 @@
         <tfoot>
             <tr>
                 <td colspan="5" style="text-align: right"> Ukupan iznos </td>
-                <td style="color: white; background-color: rgba(55, 55, 55, 0.5); text-align:center"> <b> @narudzba.UkupnaCijena KM </b> </td>
+                <td style="color: darkcyan; text-align:center"> <b> @narudzba.UkupnaCijena KM </b> </td>
             </tr>
         </tfoot>
     </table>

@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="Areas\Korisnik\Data\" />
     <Folder Include="Areas\Korisnik\Models\" />
-    <Folder Include="wwwroot\pictures\proizvodi\" />
     <Folder Include="wwwroot\pictures\oglasi\" />
   </ItemGroup>
 

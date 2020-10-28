@@ -66,19 +66,19 @@
                                                     </div>
                                                 }
                                                 <div class="content detalji">
-                                                    @Model.proizvodi.ElementAt(count++).OpisProizvoda
+                                                    @Model.proizvodi.ElementAt(count).OpisProizvoda
                                                 </div>
                                             </div>
 
                                         </div>
                                         <footer class="card-footer">
                                             <a href="#" class="button is-link is-rounded is-inverted card-footer-item">Pogledaj detaljno</a>
-                                            <a href="#" class="button is-link is-rounded card-footer-item cart-button">
+                                            <button value="@Model.proizvodi.ElementAt(count++).ProizvodID" class="button is-link is-rounded card-footer-item cart-button">
                                                 <span class="icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </span>
                                                 <span>Dodaj u korpu</span>
-                                            </a>
+                                            </button>
                                         </footer>
                                     </div>
                                 </div>
@@ -95,13 +95,24 @@
                                 <div class="col-md-4">
                                     <div class="card" style="transform:scale(0.9); margin:auto;">
                                         <div class="card-image">
-                                            <figure class="image is-3by2" style="transform:scale(0.8)">
+                                            <figure class="image is-4by3" style="transform:scale(0.8)">
                                                 <img class="card-image" src="@Model.proizvodi.ElementAt(count).imageLocation" />
                                             </figure>
                                         </div>
                                         <div class="card-content">
                                             <div class="media-content">
-                                                <p class="title is-4"> @Model.proizvodi.ElementAt(count).NazivProizvoda </p>
+                                                <p class="title is-4">
+                                                    @{
+                                                        if (Model.proizvodi.ElementAt(count).NazivProizvoda.Length >= 22)
+                                                        {
+                                                            @(Model.proizvodi.ElementAt(count).NazivProizvoda.Substring(0, 22) + "..")
+                                                        }
+                                                        else
+                                                        {
+                                                            @Model.proizvodi.ElementAt(count).NazivProizvoda
+                                                        }
+                                                    }
+                                                </p>
                                                 @if (@Model.proizvodi.ElementAt(count).snizen)
                                                 {
                                                     <p class="subtitle is-6">
@@ -117,19 +128,19 @@
                                                     </div>
                                                 }
                                                 <div class="content detalji">
-                                                    @Model.proizvodi.ElementAt(count++).OpisProizvoda
+                                                    @Model.proizvodi.ElementAt(count).OpisProizvoda
                                                 </div>
                                             </div>
 
                                         </div>
                                         <footer class="card-footer">
                                             <a href="#" class="button is-link is-rounded is-inverted card-footer-item">Pogledaj detaljno</a>
-                                            <a href="#" class="button is-link is-rounded card-footer-item">
+                                            <button value="@Model.proizvodi.ElementAt(count++).ProizvodID" class="button is-link is-rounded card-footer-item">
                                                 <span class="icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </span>
-                                                <span>Naruči</span>
-                                            </a>
+                                                <span>Dodaj u korpu</span>
+                                            </button>
                                         </footer>
                                     </div>
                                 </div>
@@ -245,6 +256,24 @@
     for (let i = 0; i < n.length; i++) {
         console.log(n[i].textContent);
         n[i].innerHTML = n[i].textContent.replace("\"", "");
+    }
+
+    var elements = document.getElementsByClassName("cart-button");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click",
+            function(e) {
+                toastr["info"]("Artikal dodan u korpu");
+                SaveItem($(elements[i]).attr("value"), 1);
+            });
+    }
+
+    function SaveItem(productId, quantity) {
+        var current = localStorage.getItem(productId);
+        if (current != null) {
+            localStorage.setItem(productId, parseInt(current) + parseInt(quantity));
+        }
+        else
+            localStorage.setItem(productId, quantity);
     }
 
 </script>
