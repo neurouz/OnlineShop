@@ -80,7 +80,10 @@
     function ConfirmOrder() {
         $.post("/Korisnik/Cart/Confirm", { "data": JSON.stringify(localStorage), "userId": @userManager.GetUserId(User) },
             function (result) {
-                // TODO: Izbaciti popup da je narudzba evidentirana
+                if (result != "") {
+                    toastr["error"](result);
+                    return;
+                }
 
                 toastr["success"]("Uspješno ste evidentirali narudžbu. Možete nastaviti sa kupovinom!", "Narudžba evidentirana")
 

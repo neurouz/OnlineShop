@@ -56,6 +56,13 @@ namespace OnlineShop.Areas.Korisnik.Controllers
             if (items.Count == 0)
                 return Content("Korpa je prazna");
 
+            var check = CheckItems(items);
+            if (check != null)
+            {
+                return Content("Greška: Na stanju je trenutno " + check.Kolicina + " komada za proizvod "
+                    + check.NazivProizvoda);
+            }
+
             var user = await _userManager.FindByIdAsync(userId);
             var order = new Narudzba()
             {
@@ -85,6 +92,18 @@ namespace OnlineShop.Areas.Korisnik.Controllers
 
             await _context.SaveChangesAsync();
             return Content("");
+        }
+
+        private Proizvod CheckItems(Dictionary<string, string> items)
+        {
+            foreach(var item in items)
+            {
+                var product = _context.Proizvod.Find(int.Parse(item.Key));
+                var quantity = int.Parse(item.Value);
+                if (quantity > product.Kolicina)
+                    return product;
+            }
+            return null;
         }
     }
 }

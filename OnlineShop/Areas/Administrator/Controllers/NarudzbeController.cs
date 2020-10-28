@@ -116,6 +116,16 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 return Content("Narudžba je već potvrđena");
 
             narudzba.Potvrdjena = true;
+
+            var stavke = _context.NarudzbaStavka.Where(x => x.NarudzbaId == narudzbaId);
+            foreach(var product in stavke)
+            {
+                var proizvod = _context.Proizvod.Find(product.ProizvodId);
+                proizvod.Kolicina -= _context.NarudzbaStavka
+                    .Where(x => x.ProizvodId == product.ProizvodId)
+                    .Where(x => x.NarudzbaId == narudzbaId).Count();
+            }
+
             await _context.SaveChangesAsync();
 
             return Content("Narudžba potvrđena");
