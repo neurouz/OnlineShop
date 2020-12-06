@@ -26,7 +26,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }

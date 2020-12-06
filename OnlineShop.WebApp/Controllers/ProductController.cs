@@ -48,7 +48,10 @@ namespace OnlineShop.Controllers
 
         public async Task<IActionResult> Details(int productId)
         {
-            Proizvod product = await _context.Proizvod.FindAsync(productId);
+            Proizvod product = await _context.Proizvod
+                .Include(x => x.Proizvodjac)
+                .Include(x => x.uvoznik)
+                .Include(x => x.kategorija).FirstAsync(x => x.ProizvodID == productId);
             return product != null ? 
                 View(product) : 
                 View("Error", new ErrorViewModel() { RequestId = "Proizvod ne postoji u bazi" });

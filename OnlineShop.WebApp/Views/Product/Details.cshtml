@@ -4,4 +4,45 @@
 *@
 @{
 }
-<p>@Model.NazivProizvoda</p><p>@Model.Cijena KM</p>
+
+<link href="/css/productDetails.css" rel="stylesheet" />
+
+<h2 class="title is-3 text-center"> <b> @Model.NazivProizvoda </b> </h2>
+<hr />
+<br />
+
+<div class="center">
+    <div class="product-left">
+        <div class="product-image">
+            <img class="d-block" src="@Model.imageLocation" alt="proizvod_slika" />
+        </div>
+    </div>
+    <div class="product-right">
+        <p class="is-5">Cijena: <b> @Model.Cijena KM </b> </p>
+        <p class="is-5">Na stanju: @Model.Kolicina komada</p>
+        <p class="is-5">Proizvođač: @Model.Proizvodjac.NazivProizvodjaca</p>
+        <p class="is-5">Uvoznik: @Model.uvoznik.NazivUvoznika</p>
+        <p class="is-5">
+            Snižen:
+            @if (Model.snizen)
+            {
+                <span class="is-text text-success">DA</span>
+            }
+            else
+            {
+                <span class="is-text text-danger">NE</span>
+            }
+        </p>
+        <p class="is-5">Kategorija: @Model.kategorija.NazivKategorije</p>
+        <p class="is-5">Opis proizvoda: @Model.OpisProizvoda</p>
+    </div>
+
+</div>
+
+@if (User.IsInRole("Korisnik"))
+{
+<div class="naruci">
+    <input class="input" placeholder="Unesite količinu" type="number" value="1" min="0"/>
+    <a class="button is-info"> Dodaj u korpu </a>
+</div>
+}
