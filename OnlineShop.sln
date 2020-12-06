@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop", "OnlineShop\OnlineShop.csproj", "{20E9C950-63EE-42FE-B30D-2CFAEFB513E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.WebApp", "OnlineShop.WebApp\OnlineShop.WebApp.csproj", "{20E9C950-63EE-42FE-B30D-2CFAEFB513E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{95812238-9870-4361-A65B-2E1A3030DD19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Model", "OnlineShop.Model\OnlineShop.Model.csproj", "{95812238-9870-4361-A65B-2E1A3030DD19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.UnitTests", "OnlineShop.UnitTests\OnlineShop.UnitTests.csproj", "{ED9206F4-D873-47B9-A376-44275E5A9C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.UnitTests", "OnlineShop.UnitTests\OnlineShop.UnitTests.csproj", "{ED9206F4-D873-47B9-A376-44275E5A9C27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
