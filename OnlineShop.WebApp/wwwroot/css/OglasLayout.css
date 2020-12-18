@@ -21,14 +21,25 @@ td, tr{
     transition: all .1s;
 }
 
-.uredi:hover, .det:hover, .ukloni:hover{
-    transform: translateY(2px);
+.uredi:hover, .det:hover, .ukloni:hover, .prijave:hover{
+    transform: translateY(-2px);
 }
 
-.det{
-
+.content {
+    width: 70% !important;
+    margin: auto !important;
 }
 
-.ukloni{
-
+.modal-box {
+    position: absolute;
+    z-index: 200;
+    margin-top: 0 !important;
+    width: 100% !important;
+    box-shadow: 0px 5px 20px rgb(180, 178, 178);
+    border-radius: 20px;
+    padding: 25px;
+    padding-top: 50px;
+    transform: translateY(-50px);
+    background-color: white;
+    display: none;
 }

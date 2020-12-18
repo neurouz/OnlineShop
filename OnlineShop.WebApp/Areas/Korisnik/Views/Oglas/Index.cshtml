@@ -1,0 +1,90 @@
+﻿@model List<OnlineShop.Model.Models.Oglas>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<link href="/css/OglasPage.css" rel="stylesheet" />
+
+<h4 class="title is-4"> Otvorene pozicije </h4>
+
+<div id="prijava-form">
+
+</div>
+
+<div class="center">
+    @foreach (var oglas in Model)
+    {
+        <div class="card green">
+            <div class="additional">
+                <div class="user-card">
+                    <img src="/icons/job.png" alt="Work icon" class="work-icon" />
+                </div>
+                <div class="more-info">
+                    <h1>@oglas.Naslov</h1>
+                    <br />
+                    <div class="coords-main">
+                        <div class="coords coords-left">
+                            <span>Autor</span>
+                            <span>Broj pozicija</span>
+                            <span>Lokacija</span>
+                            <span>Datum objave</span>
+                            <span>Datum isteka</span>
+                        </div>
+                        <div class="coords coords-right">
+                            <span>@oglas.Autor.UserName</span>
+                            <span>@oglas.BrojPozicija</span>
+                            <span>@oglas.Lokacija</span>
+                            <span>@oglas.DatumObjave.ToShortDateString()</span>
+                            <span>@oglas.DatumIsteka.ToShortDateString()</span>
+                        </div>
+                    </div>
+                    <div class="stats">
+                        @if (User.IsInRole("Korisnik") || User.IsInRole("Administrator"))
+                        {
+                            <a onclick="PrijavaKorisnik(@oglas.Id)" class="button is-link is-inverted is-small is-rounded right-align prijava">
+                                <span class="icon">
+                                    <i class="fas fa-greater-than"></i>
+                                </span>
+                                <span>Prijavi se</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a onclick="PrijavaGuest(@oglas.Id)" class="button is-link is-inverted is-small is-rounded right-align prijava">
+                                <span class="icon">
+                                    <i class="fas fa-greater-than"></i>
+                                </span>
+                                <span>Prijavi se</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="general">
+                <h1>@oglas.Naslov</h1> <br />
+                <p class="text-justify">@oglas.Sadrzaj</p>
+                <span class="more"><small> <b> @oglas.GetExpirationDays() </b> </small></span>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function PrijavaKorisnik(oglasId) {
+        $.get(`/Korisnik/Oglas/Prijava?oglasId=${oglasId}`, (result) => {
+            $("#prijava-form").html(result);
+            $("#prijava-form").css("display", "block");
+        });
+    }
+
+    function PrijavaGuest(oglasId) {
+        $.get(`/Korisnik/Oglas/PrijavaGuest?oglasId=${oglasId}`, (result) => {
+            $("#prijava-form").html(result);
+            $("#prijava-form").css("display", "block");
+        });
+    }
+</script>

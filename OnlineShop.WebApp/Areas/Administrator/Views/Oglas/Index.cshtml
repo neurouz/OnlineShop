@@ -19,17 +19,20 @@
 <link rel="stylesheet" href="~/css/OglasLayout.css" asp-append-version="true" />
 
 <div class="not-layout">
+    <div id="container" class="modal-box">
+
+    </div>
     <h4 class="text-center title is-4"> Oglasi </h4>
-    <table class="table">
+    <table style="width: 80%; margin: auto;" class="table">
         <thead>
             <tr>
-                <th> Naslov </th>
-                <th> Pozicija </th>
-                <th> Lokacija </th>
-                <th> Datum objave </th>
-                <th> Datum isteka </th>
-                <th> Aktivan </th>
-                <th> Akcije </th>
+                <th style="width: 20px"> Naslov </th>
+                <th style="width: 15px"> Pozicija </th>
+                <th style="width: 25px"> Lokacija </th>
+                <th style="width: 25px"> Datum objave </th>
+                <th style="width: 25px"> Datum isteka </th>
+                <th style="width: 15px"> Aktivan </th>
+                <th style="width: 40px"> Akcije </th>
             </tr>
         </thead>
         <tbody>
@@ -64,6 +67,7 @@
                         <a asp-action="Edit" asp-route-id="@item.Id" title="Uredi"> <i class="fas fa-pen uredi" style="text-decoration:none"></i> </a>
                         <a asp-action="Details" asp-route-id="@item.Id" style="color:green" title="Detaljno"> <i class="fas fa-info-circle det"></i> </a>
                         <a asp-action="Delete" asp-route-id="@item.Id" style="color:darkred" title="Obriši"> <i class="fas fa-trash ukloni"></i> </a>
+                        <a name="@item.Id" class="prijave" title="Pogledaj prijave" style="color: darkcyan;"> <i class="far fa-eye"></i> <span style="margin-bottom: 3px; font-size: xx-small">Prijave</span> </a>
                     </td>
                 </tr>
             }
@@ -75,9 +79,21 @@
     </nav>
     <hr />
 
-    <a class="button is-primary" asp-controller="Oglas" asp-action="Create">
+    <a style="margin-left: 10%;" class="button is-primary" asp-controller="Oglas" asp-action="Create">
         <span style="margin-right: 8px;"><i class="fas fa-plus"></i></span>
         <span> Novi oglas </span>
     </a>
 
 </div>
+
+<script>
+    var prijave = document.getElementsByClassName('prijave');
+    for (let i = 0; i < prijave.length; i++) {
+        prijave[i].onclick = () => {
+            $.get('/Administrator/Oglas/GetPrijave?oglasId='.concat(prijave[i].getAttribute('name')), (result) => {
+                $('#container').html(result);
+                $("#container").fadeIn(100);
+            })
+        };
+    };
+</script>

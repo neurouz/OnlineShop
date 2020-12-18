@@ -42,7 +42,26 @@
 @if (User.IsInRole("Korisnik"))
 {
 <div class="naruci">
-    <input class="input" placeholder="Unesite količinu" type="number" value="1" min="0"/>
-    <a class="button is-info"> Dodaj u korpu </a>
+    <input id="kolicina" class="input" placeholder="Unesite količinu" type="number" value="1" min="0"/>
+    <a id="product-cart" value="@Model.ProizvodID" class="button is-info"> Dodaj u korpu </a>
 </div>
 }
+
+<script>
+    var element = document.getElementById("product-cart");
+        element.addEventListener("click",
+        function (e) {
+            toastr["info"]("Artikal dodan u korpu");
+            var quantity = $("#kolicina").val();
+            SaveItem($(element).attr("value"), parseInt(quantity));
+        });
+
+    function SaveItem(productId, quantity) {
+        var current = localStorage.getItem(productId);
+        if (current != null) {
+            localStorage.setItem(productId, parseInt(current) + parseInt(quantity));
+        }
+        else
+            localStorage.setItem(productId, quantity);
+    }
+</script>

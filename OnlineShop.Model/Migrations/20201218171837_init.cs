@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ClassLibrary.Migrations
+namespace OnlineShop.Model.Migrations
 {
     public partial class init : Migration
     {
@@ -306,7 +306,7 @@ namespace ClassLibrary.Migrations
                     DatumObjave = table.Column<DateTime>(nullable: false),
                     Trajanje = table.Column<int>(nullable: false, defaultValue: 0),
                     DatumIsteka = table.Column<DateTime>(nullable: false),
-                    AutorId = table.Column<int>(nullable: true),
+                    AutorId = table.Column<int>(nullable: false),
                     Aktivan = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -440,6 +440,31 @@ namespace ClassLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "KorisnikOglasAuth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OglasId = table.Column<int>(nullable: false),
+                    Ime = table.Column<string>(nullable: true),
+                    Prezime = table.Column<string>(nullable: true),
+                    DatumSlanja = table.Column<DateTime>(nullable: false),
+                    BrojTelefona = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    CV = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KorisnikOglasAuth", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_KorisnikOglasAuth_Oglas_OglasId",
+                        column: x => x.OglasId,
+                        principalTable: "Oglas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NarudzbaStavka",
                 columns: table => new
                 {
@@ -541,6 +566,11 @@ namespace ClassLibrary.Migrations
                 column: "OglasId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_KorisnikOglasAuth_OglasId",
+                table: "KorisnikOglasAuth",
+                column: "OglasId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Narudzba_DostavljacId",
                 table: "Narudzba",
                 column: "DostavljacId");
@@ -630,6 +660,9 @@ namespace ClassLibrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "KorisnikOglas");
+
+            migrationBuilder.DropTable(
+                name: "KorisnikOglasAuth");
 
             migrationBuilder.DropTable(
                 name: "NarudzbaStavka");

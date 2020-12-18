@@ -1,0 +1,83 @@
+﻿@model List<OnlineShop.WebApp.ViewModels.KorisnikOglasModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<link rel="stylesheet" href="~/css/CartPartialView.css" />
+<link rel="stylesheet" href="~/css/OglasLayout.css" />
+
+@if (Model.Count > 0)
+{
+    <div>
+        <button class="close" type="button" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div id="scroll" class="container">
+            <h4 class="text-center title is-4"> Prijave za poziciju '@Model[0].Oglas.Naslov' </h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Datum slanja</th>
+                        <th>Datum isteka</th>
+                        <th>Broj telefona</th>
+                        <th>E-mail</th>
+                        <th>CV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entity in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (entity.Registrovan)
+                                {
+                                    <i style="color: darkgreen" class="fas fa-user-check" data-toggle="tooltip" data-placement="top" title="Korisnik je registrovan"></i>
+                                }
+                                else
+                                {
+                                    <i style="color: darkred" class="fas fa-user-times" data-toggle="tooltip" data-placement="top" title="Korisnik nije registrovan"></i>
+                                }
+                                @entity.Ime
+                            </td>
+                            <td>@entity.Prezime</td>
+                            <td>@entity.DatumSlanja.ToShortDateString()</td>
+                            <td>@entity.DatumIsteka.ToShortDateString()</td>
+                            <td> <a href="tel:@entity.BrojTelefona"> @entity.BrojTelefona </a> </td>
+                            <td> <a href="mailto:@entity.Email"> @entity.Email </a> </td>
+                            <td>
+                                <button class="button is-success is-light" id="preuzmi-btn"
+                                        onclick="Download(@entity.CVPath)">
+                                    Preuzmi
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+<div class="container" id="scroll">
+    <button class="close" type="button" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="text-center title is-4"> Za odabranu poziciju trenutno ne postoji nijedna prijava. </h4>
+</div>
+}
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(".close").on('click', () => {
+        $("#container").fadeOut(100);
+    });
+</script>

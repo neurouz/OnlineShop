@@ -621,7 +621,8 @@ namespace OnlineShop.Model.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
                     Aktivan = true,
-                    BrojPozicija = 3
+                    BrojPozicija = 3,
+                    AutorId = 1
                 }.IzracunajDatumIsteka());
 
                 _context.SaveChanges();
@@ -634,7 +635,8 @@ namespace OnlineShop.Model.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 5,
                     Aktivan = true,
-                    BrojPozicija = 3
+                    BrojPozicija = 3,
+                    AutorId = 1
                 }.IzracunajDatumIsteka());
 
                 _context.SaveChanges();
@@ -647,20 +649,22 @@ namespace OnlineShop.Model.Models
                     DatumObjave = DateTime.Now,
                     Trajanje = 20,
                     Aktivan = true,
-                    BrojPozicija = 1
+                    BrojPozicija = 1, 
+                    AutorId = 1
                 }.IzracunajDatumIsteka());
 
                 _context.SaveChanges();
 
                 _context.Oglas.Add(new Oglas()
                 {
-                    Naslov = "Direktor",
+                    Naslov = "Frontent developer",
                     Lokacija = "Tuzla",
-                    Sadrzaj = "Oglas je zatvoren.",
+                    Sadrzaj = "Potrebna osoba za dizajniranje web stranice. Iskustvo nije potrebno ali je poželjno. Kandidati će biti pozvani na kratki razgovor nakon čega će se odabrati najbolji kandidat.",
                     DatumObjave = DateTime.Now,
                     Trajanje = 10,
-                    Aktivan = false,
-                    BrojPozicija = 1
+                    Aktivan = true,
+                    BrojPozicija = 1,
+                    AutorId = 1
                 }.IzracunajDatumIsteka());
 
                 _context.SaveChanges();
@@ -766,6 +770,44 @@ namespace OnlineShop.Model.Models
                 });
 
                 _context.KorisnikOglas.AddRange(koglasi);
+                _context.SaveChanges();
+
+                List<KorisnikOglasAuth> koglasi_auth = new List<KorisnikOglasAuth>();
+
+                koglasi_auth.Add(new KorisnikOglasAuth()
+                {
+                    OglasId = 1,
+                    Ime = "Mujo",
+                    Prezime = "Zukić",
+                    DatumSlanja = DateTime.Now,
+                    BrojTelefona = "061/771-458",
+                    Email = "mujo.zukic@gmail.com",
+                    CV = null
+                });
+
+                koglasi_auth.Add(new KorisnikOglasAuth()
+                {
+                    OglasId = 2,
+                    Ime = "Almir",
+                    Prezime = "Bečić",
+                    DatumSlanja = DateTime.Now,
+                    BrojTelefona = "061/123-001",
+                    Email = "almir.becic@gmail.com",
+                    CV = null
+                });
+
+                koglasi_auth.Add(new KorisnikOglasAuth()
+                {
+                    OglasId = 3,
+                    Ime = "Muhamed",
+                    Prezime = "Keć",
+                    DatumSlanja = DateTime.Now,
+                    BrojTelefona = "061/493-840",
+                    Email = "muhamed.kech@yahoo.com",
+                    CV = null
+                });
+
+                _context.KorisnikOglasAuth.AddRange(koglasi_auth);
                 _context.SaveChanges();
 
                 List<Narudzba> narudzbe = new List<Narudzba>();

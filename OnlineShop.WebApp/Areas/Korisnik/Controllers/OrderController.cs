@@ -30,7 +30,8 @@ namespace OnlineShop.Areas.Korisnik.Controllers
             var model = new List<NarudzbaCollection>();
             var orders = _context.Narudzba.Include(x => x.Dostavljac)
                 .Include(x => x.Narucioc)
-                .Where(x => x.NaruciocId == currentUser.Id);
+                .Where(x => x.NaruciocId == currentUser.Id)
+                .OrderByDescending(x => x.DatumKreiranjaNarudzbe);
             foreach(var order in orders)
             {
                 var stavke = _context.NarudzbaStavka.Include(x => x.Proizvod)

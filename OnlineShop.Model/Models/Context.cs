@@ -24,6 +24,7 @@ namespace OnlineShop.Model.Models
         public DbSet<Post> Post { get; set; }
         public DbSet<Narudzba> Narudzba { get; set; }
         public DbSet<NarudzbaStavka> NarudzbaStavka { get; set; }
+        public DbSet<KorisnikOglasAuth> KorisnikOglasAuth { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

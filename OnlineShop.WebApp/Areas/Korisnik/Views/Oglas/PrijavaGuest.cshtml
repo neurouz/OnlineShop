@@ -1,0 +1,181 @@
+﻿@model OnlineShop.WebApp.ViewModels.OglasPrijavaGuest
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+
+<link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
+<button style="margin-right: 15px; margin-top: 5px" class="close" type="button" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+<br />
+<br />
+<h4 class="title is-4">Prijava na oglas '@Model.Naslov'</h4>
+<h5 style="margin-top: 15px" class="text-center subtitle is-6">Molimo vas da popunite formu ispod kako bi uspješno pohranili vašu prijavu.</h5>
+<hr />
+<br />
+
+<form asp-action="PosaljiPrijavuGuest" class="register-forma" id="reg" enctype="multipart/form-data">
+
+    <input asp-for="@Model.OglasId" value="@Model.OglasId" name="oglasId" type="hidden">
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label" asp-for="Ime">Ime i prezime</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    <input asp-for="Ime" class="input" type="text" placeholder="Vaše ime">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control is-expanded">
+                    <input asp-for="Prezime" class="input" type="text" placeholder="Vaše prezime">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label"></div>
+        <div class="field-body">
+            <div class="field is-expanded">
+                <div class="field has-addons">
+                    <p class="control">
+                        <a class="button is-static">
+                            +387
+                        </a>
+                    </p>
+                    <p class="control is-expanded">
+                        <input asp-for="BrojTelefona" class="input" placeholder="Broj telefona">
+                    </p>
+                </div>
+                <p class="help">*Mora biti u formatu 06x/xxx-xxx</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label asp-for="Email" class="label">E-mail</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input id="mail" onkeyup="checkEmail()" class="input" asp-for="Email" type="email" placeholder="username@gmail.com">
+                </div>
+            </div>
+            <span id="spnMsgMail"></span>
+        </div>
+    </div>
+
+    <div class="field is-horizontal" style="margin-left: 20%">
+        <div class="file is-info has-name">
+            <label class="file-label">
+                <input asp-for="CV" accept="*/*" class="file-input" type="file" id="fajl-cv" required>
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Dodaj CV
+                    </span>
+                </span>
+                <span class="file-name" id="file-name">
+                    Dokument nije odabran
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label">
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input type="submit" value="Pošalji prijavu" class="button is-primary" id="btnPosaljiPrijavu" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    #prijava-form {
+        height: 550px !important;
+    }
+    .error {
+        margin-top: -10px !important;
+    }
+</style>
+
+<script>
+    $("#fajl-cv").on("change",
+        function (event) {
+            var input = event.srcElement;
+            $("#file-name").html(this.files[0].name);
+        });
+
+    $(".close").on("click", () => {
+        $("#prijava-form").fadeOut();
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#reg").validate({
+            rules: {
+                Ime: {
+                    required: true
+                },
+                Prezime: {
+                    required: true
+                },
+                Email: {
+                    email: true,
+                    required: true
+                },
+                PhoneNumber: {
+                    required: true,
+                    phoneRegex: true
+                }
+            },
+            messages: {
+                Ime: "Molimo unesite vaše ime.",
+                Prezime: "Molimo unesite vaše prezime.",
+                Email: "Molimo unesite validnu e-mail adresu.",
+                PhoneNumber: {
+                    required: "Polje je obavezno.",
+                    phoneRegex: "Broj telefona mora biti u formatu 06x/xxx-xxx"
+                }
+            },
+            submitHandler: function (form) {
+                form.submit();
+            },
+            highlight: function (element, errorClass, validClass) {
+                return false;
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                return false;
+            }
+        });
+
+        jQuery.validator.addMethod("phoneRegex", function (value, element) {
+            return this.optional(element) || /^(0{0,1}[63])[123456]\/\d{3}\-\d{3}$/g.test(value);
+        }, "Broj telefona mora biti u formatu 06x/xxx-xxx ili 03x/xxx-xxx.");
+    });
+</script>

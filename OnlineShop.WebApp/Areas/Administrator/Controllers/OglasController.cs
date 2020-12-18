@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShop.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
+using OnlineShop.WebApp.ViewModels;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -162,6 +163,59 @@ namespace OnlineShop.Areas.Administrator.Controllers
         private bool OglasExists(int id)
         {
             return _context.Oglas.Any(e => e.Id == id);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> GetPrijave(int oglasId)
+        {
+            List<KorisnikOglas> registrovani = await _context.KorisnikOglas
+                .Where(x => x.OglasId == oglasId)
+                .Include(x => x.Korisnik)
+                .Include(x => x.Oglas)
+                .ToListAsync();
+
+            List<KorisnikOglasAuth> neregistrovani = await _context.KorisnikOglasAuth
+                .Where(x => x.OglasId == oglasId)
+                .Include(x => x.Oglas)
+                .ToListAsync();
+
+            List<KorisnikOglasModel> model = new List<KorisnikOglasModel>();
+
+            foreach(var user in registrovani)
+            {
+                model.Add(new KorisnikOglasModel()
+                {
+                    BrojTelefona = user.Korisnik.PhoneNumber,
+                    CVPath = user.PathCV,
+                    DatumSlanja = user.DatumPrijave,
+                    DatumIsteka = user.Oglas.DatumIsteka,
+                    Email = user.Korisnik.Email,
+                    Ime = user.Korisnik.Ime,
+                    Prezime = user.Korisnik.Prezime,
+                    Oglas = user.Oglas,
+                    Registrovan = true
+                });
+            }
+
+            foreach (var user in neregistrovani)
+            {
+                model.Add(new KorisnikOglasModel()
+                {
+                    BrojTelefona = user.BrojTelefona,
+                    CVPath = user.CV,
+                    DatumSlanja = user.DatumSlanja,
+                    DatumIsteka = user.Oglas.DatumIsteka,
+                    Email = user.Email,
+                    Ime = user.Ime,
+                    Prezime = user.Prezime,
+                    Oglas = user.Oglas,
+                    Registrovan = false
+                });
+            }
+
+            model = model.OrderBy(x => x.Ime).ToList();
+
+            return PartialView(model);
         }
     }
 }

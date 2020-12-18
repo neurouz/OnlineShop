@@ -1,0 +1,74 @@
+﻿@model OnlineShop.WebApp.ViewModels.OglasPrijava
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+
+<link rel="stylesheet" href="~/css/AccountStyles.css" asp-append-version="true" />
+<button style="margin-right: 15px; margin-top: 5px" class="close" type="button" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+<br />
+<br />
+<h4 class="title is-4">Prijava na oglas '@Model.Naslov'</h4>
+<h5 style="margin-top: 15px" class="text-center subtitle is-6">Molimo vas da dodate Vaš CV kako bi uspješno pohranili vašu prijavu.</h5>
+<hr />
+<br />
+
+<form asp-action="PosaljiPrijavu" class="register-forma" id="reg" enctype="multipart/form-data">
+
+    <input asp-for="@Model.OglasId" value="@Model.OglasId" name="oglasId" type="hidden" />
+    <input asp-for="@Model.Username" value="@User.Identity.Name" name="username" type="hidden" />
+
+    <div class="field is-horizontal" style="margin-left: 20%">
+        <div class="file is-info has-name">
+            <label class="file-label">
+                <input asp-for="CV" accept="*/*" class="file-input" type="file" id="fajl-cv" required>
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Dodaj CV
+                    </span>
+                </span>
+                <span class="file-name" id="file-name">
+                    Dokument nije odabran
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label">
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input type="submit" value="Pošalji prijavu" class="button is-primary" id="btnPosaljiPrijavu" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#fajl-cv").on("change",
+        function (event) {
+            var input = event.srcElement;
+            $("#file-name").html(this.files[0].name);
+        });
+
+    $(".close").on("click", () => {
+        $("#prijava-form").fadeOut();
+    });
+</script>
