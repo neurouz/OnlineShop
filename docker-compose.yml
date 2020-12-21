@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  onlineshop-sql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWElkj132!
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
+    networks:
+      - onlineshopnet
+
+    
+  onlineshop-api:
+    restart: unless-stopped
+    build: .
+    environment:
+      - ConnectionStrings:connection=Server=onlinestore,1433;Database=OnlineShop;User=sa;Password=QWElkj132!;ConnectRetryCount=100;MultipleActiveResultSets=true
+    ports:
+      - 3001:80
+    networks:
+      - onlineshopnet
+    links:
+      - onlineshop-sql
+    depends_on:
+      - onlineshop-sql
+      
+networks:
+  onlineshopnet:
+    driver: bridge
