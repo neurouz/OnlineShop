@@ -33,11 +33,14 @@ namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
             _roleMgr = roleMgr;
             _hostingEnvironment = environment;
         }
-        public IActionResult Index()
+        public IActionResult Index(string note = null)
         {
+            ViewData["note"] = note;
+
             var model = _context.Oglas
                 .Include(x => x.Autor)
                 .Where(x => x.Aktivan).ToList();
+
             return View(model);
         }
 
@@ -114,7 +117,7 @@ namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Content(entity.ToString());
+            return RedirectToAction("Index", "Oglas", new { note = "Prijava poslana!" });
         }
 
         public async Task<IActionResult> PosaljiPrijavu(OglasPrijava prijava, IFormFile CV)
@@ -166,7 +169,7 @@ namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Content(entity.ToString());
+            return RedirectToAction("Index", "Oglas", new {note = "Prijava poslana!"});
         }
     }
 }

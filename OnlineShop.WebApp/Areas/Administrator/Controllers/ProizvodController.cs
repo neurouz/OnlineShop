@@ -132,7 +132,10 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 if (slikaProizvoda.Length > 0)
                 {
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+
+                    //var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "proizvodi");
+
                     var filename = "Proizvod-" + _context.Proizvod
                         .Where(x => x.ProizvodID == proizvod.ProizvodID)
                         .FirstOrDefault().ProizvodID.ToString() + 
@@ -164,8 +167,10 @@ namespace OnlineShop.Areas.Administrator.Controllers
             var extension_delete = Path
                 .GetExtension(p.imageLocation);
 
-            var path_delete = _hostingEnvironment.WebRootPath
-                + "\\pictures\\proizvodi\\" + "Proizvod-" + id + extension_delete;
+            //var path_delete = _hostingEnvironment.WebRootPath
+            //    + "\\pictures\\proizvodi\\" + "Proizvod-" + id + extension_delete;
+            var path_delete = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "proizvodi",
+                "Proizvod-" + id + extension_delete);
 
             if (System.IO.File.Exists(path_delete))
             {
@@ -223,15 +228,18 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 if (mdl.slikaProizvoda.Length > 0)
                 {
                     var extension_delete = Path.GetExtension(mdl.proizvodEdit.imageLocation);
-                    var path_delete = _hostingEnvironment.WebRootPath 
-                        + "\\pictures\\proizvodi\\" + mdl.proizvodEdit.ProizvodID + extension_delete;
+                    //var path_delete = _hostingEnvironment.WebRootPath 
+                    //    + "\\pictures\\proizvodi\\" + mdl.proizvodEdit.ProizvodID + extension_delete;
+                    var path_delete = Path.Combine(_hostingEnvironment.WebRootPath, "pictures",
+                        "proizvodi" + mdl.proizvodEdit.ProizvodID + extension_delete);
 
                     if (System.IO.File.Exists(path_delete))
                     {
                         System.IO.File.Delete(path_delete);
                     }
 
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+                    //var path = _hostingEnvironment.WebRootPath + "\\pictures\\proizvodi";
+                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "proizvodi");
 
                     var filename = "Proizvod-" + _context.Proizvod
                         .Where(x => x.ProizvodID == mdl.proizvodEdit.ProizvodID)

@@ -54,7 +54,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
             {
                 if (slika.Length > 0)
                 {
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
+                    //var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
+                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "oglasi");
                     var filename = "Oglas-" + _context.Post
                         .Where(x => x.Id == post.Id)
                         .FirstOrDefault().Id.ToString() +
@@ -89,8 +90,10 @@ namespace OnlineShop.Areas.Administrator.Controllers
             var extension_delete = Path
                 .GetExtension(post.ImageLocation);
 
-            var path_delete = _hostingEnvironment.WebRootPath
-                + "\\pictures\\oglasi\\" + "Oglas-" + id + extension_delete;
+            //var path_delete = _hostingEnvironment.WebRootPath
+            //    + "\\pictures\\oglasi\\" + "Oglas-" + id + extension_delete;
+            var path_delete = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "oglasi",
+                "Oglas-" + id + extension_delete);
 
             if (System.IO.File.Exists(path_delete))
             {
@@ -127,15 +130,18 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 {
 
                     var extension_delete = Path.GetExtension(p.ImageLocation);
-                    var path_delete = _hostingEnvironment.WebRootPath
-                        + "\\pictures\\oglasi\\" + "Oglas-" + model.postEdit.Id + extension_delete;
+                    //var path_delete = _hostingEnvironment.WebRootPath
+                    //    + "\\pictures\\oglasi\\" + "Oglas-" + model.postEdit.Id + extension_delete;
+                    var path_delete = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "oglasi",
+                        "Oglas-" + model.postEdit.Id + extension_delete);
 
                     if (System.IO.File.Exists(path_delete))
                     {
                         System.IO.File.Delete(path_delete);
                     }
 
-                    var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
+                    //var path = _hostingEnvironment.WebRootPath + "\\pictures\\oglasi";
+                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "pictures", "oglasi");
                     var filename = "Oglas-" + _context.Post
                         .Where(x => x.Id == model.postEdit.Id)
                         .FirstOrDefault().Id.ToString() +

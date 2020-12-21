@@ -267,7 +267,7 @@ namespace OnlineShop.Controllers
                 // Kreira se nalog za Administratora
                 var user = new AppUser();
 
-                user.UserName = "Neurouz";
+                user.UserName = "Admin";
                 user.Email = "neurouzmedia@gmail.com";
                 user.EmailConfirmed = true;
                 user.DatumRegistracije = DateTime.Now;
@@ -317,7 +317,7 @@ namespace OnlineShop.Controllers
                 korisnik3.PosljednjiLoginDate = null;
                 korisnik3.SjedisteId = _context.Drzava.Find(drzava.Id).Id;
 
-                IdentityResult chkUser = await userMgr.CreateAsync(user, "Neurouz1!");
+                IdentityResult chkUser = await userMgr.CreateAsync(user, "AppAdmin1!");
                 IdentityResult chkUser1 = await userMgr.CreateAsync(korisnik1, "AppUser1!");
                 IdentityResult chkUser2 = await userMgr.CreateAsync(korisnik2, "Ta$$t4turA=");
                 IdentityResult chkUser3 = await userMgr.CreateAsync(korisnik3, "T3$tuS3r=");

@@ -10,24 +10,13 @@ services:
       - MSSQL_PID=Developer
     ports:
       - 1433:1433
-    networks:
-      - onlineshopnet
 
-    
   onlineshop-api:
     restart: unless-stopped
     build: .
-    environment:
-      - ConnectionStrings:connection=Server=onlinestore,1433;Database=OnlineShop;User=sa;Password=QWElkj132!;ConnectRetryCount=100;MultipleActiveResultSets=true
     ports:
       - 3001:80
-    networks:
-      - onlineshopnet
     links:
       - onlineshop-sql
     depends_on:
       - onlineshop-sql
-      
-networks:
-  onlineshopnet:
-    driver: bridge

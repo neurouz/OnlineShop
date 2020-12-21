@@ -88,3 +88,13 @@
         });
     }
 </script>
+
+
+@if (ViewData["note"] != null)
+{
+    <script>
+        $(function() {
+            toastr["success"]('@ViewData["note"]');
+        });
+    </script>
+}
