@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Http;
 using OnlineShop.WebApp.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace OnlineShop.Areas.Administrator.Controllers
 {
@@ -16,10 +19,12 @@ namespace OnlineShop.Areas.Administrator.Controllers
     public class OglasController : Controller
     {
         private readonly Context _context;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         
-        public OglasController(Context context)
+        public OglasController(Context context, IWebHostEnvironment environment)
         {
             _context = context;
+            _hostingEnvironment = environment;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -153,6 +158,8 @@ namespace OnlineShop.Areas.Administrator.Controllers
 
             var x = _context.KorisnikOglas.Where(x => x.OglasId == id).ToList();
             _context.RemoveRange(x);
+            var y = _context.KorisnikOglasAuth.Where(x => x.OglasId == id).ToList();
+            _context.RemoveRange(y);
 
             _context.Oglas.Remove(oglas);
             await _context.SaveChangesAsync();
@@ -186,7 +193,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 model.Add(new KorisnikOglasModel()
                 {
                     BrojTelefona = user.Korisnik.PhoneNumber,
-                    CVPath = user.PathCV,
+                    CVPath = user.PathCV?.Replace("\\", "_"),
                     DatumSlanja = user.DatumPrijave,
                     DatumIsteka = user.Oglas.DatumIsteka,
                     Email = user.Korisnik.Email,
@@ -202,7 +209,7 @@ namespace OnlineShop.Areas.Administrator.Controllers
                 model.Add(new KorisnikOglasModel()
                 {
                     BrojTelefona = user.BrojTelefona,
-                    CVPath = user.CV,
+                    CVPath = user.CV?.Replace("\\", "_"),
                     DatumSlanja = user.DatumSlanja,
                     DatumIsteka = user.Oglas.DatumIsteka,
                     Email = user.Email,
@@ -216,6 +223,19 @@ namespace OnlineShop.Areas.Administrator.Controllers
             model = model.OrderBy(x => x.Ime).ToList();
 
             return PartialView(model);
+        }
+    
+        [Authorize(Roles="Administrator")]
+        public async Task<IActionResult> GetFile(string path){
+            var bytes = Convert.FromBase64String(path);
+            var decodedPath = Encoding.UTF8.GetString(bytes);
+
+            var filename = Path.Combine(_hostingEnvironment.WebRootPath, decodedPath.Replace("_", "\\"));       
+            if(!System.IO.File.Exists(filename))
+                return StatusCode(404);     
+
+            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filename);
+            return File(fileBytes, "application/force-download", filename);
         }
     }
 }

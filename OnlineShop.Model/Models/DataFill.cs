@@ -29,9 +29,6 @@ namespace OnlineShop.Model.Models
         }
         public static bool LoadData(Context _context)
         {
-
-            int brojSlike = 1;
-
             try
             {
 
@@ -495,7 +492,7 @@ namespace OnlineShop.Model.Models
                 });
                 _context.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -726,7 +723,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 2,
                     OglasId = 4,
-                    PathCV = "/CV/Korisnik-2/"
+                    PathCV = null
                 });
 
                 koglasi.Add(new KorisnikOglas()
@@ -734,7 +731,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 3,
                     OglasId = 4,
-                    PathCV = "/CV/Korisnik-3/"
+                    PathCV = null
                 });
 
                 koglasi.Add(new KorisnikOglas()
@@ -742,7 +739,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 4,
                     OglasId = 4,
-                    PathCV = "/CV/Korisnik-4/"
+                    PathCV = null
                 });
 
                 koglasi.Add(new KorisnikOglas()
@@ -750,7 +747,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 2,
                     OglasId = 1,
-                    PathCV = "/CV/Korisnik-2/"
+                    PathCV = null
                 });
 
                 koglasi.Add(new KorisnikOglas()
@@ -758,7 +755,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 3,
                     OglasId = 2,
-                    PathCV = "/CV/Korisnik-3/"
+                    PathCV = null
                 });
 
                 koglasi.Add(new KorisnikOglas()
@@ -766,7 +763,7 @@ namespace OnlineShop.Model.Models
                     DatumPrijave = DateTime.Now,
                     KorisnikId = 4,
                     OglasId = 4,
-                    PathCV = "/CV/Korisnik-4/"
+                    PathCV = null
                 });
 
                 _context.KorisnikOglas.AddRange(koglasi);
@@ -967,7 +964,7 @@ namespace OnlineShop.Model.Models
                 _context.SaveChanges();
 
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return false;
             }

@@ -32,6 +32,9 @@
         <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
         <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+        <script src="~/lib/toastr.js/toastr.min.js"></script>
+        <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+        <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -54,6 +57,9 @@
         <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
         <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+        <script src="~/lib/toastr.js/toastr.min.js"></script>
+        <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+        <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
     </environment>
 
 </head>
@@ -377,7 +383,25 @@
 </body>
 </html>
 
-<script>
+<script>    
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "2000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
     if ($(document).width() <= 1000) {
         $("#sidebar").removeClass("sidebar-visible");
         $("#sidebar").addClass("sidebar-hidden");

@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="~/css/CartPartialView.css" />
 <link rel="stylesheet" href="~/css/OglasLayout.css" />
+<script src="~/js/jqDownload.js"></script>
 
 @if (Model.Count > 0)
 {
@@ -50,10 +51,20 @@
                             <td> <a href="tel:@entity.BrojTelefona"> @entity.BrojTelefona </a> </td>
                             <td> <a href="mailto:@entity.Email"> @entity.Email </a> </td>
                             <td>
-                                <button class="button is-success is-light" id="preuzmi-btn"
-                                        onclick="Download(@entity.CVPath)">
+                                @if(entity.CVPath != null){
+                                    <a target="_blank"
+                                    href="/Administrator/Oglas/GetFile?path=@entity.CVPath"
+                                    class="button is-success is-light"
+                                    id="preuzmi-btn">
                                     Preuzmi
-                                </button>
+                                </a>
+                                }
+                                else{
+                                <a class="button is-success is-light" id="preuzmi-btn"
+                                        onclick="ShowError()">
+                                    Preuzmi
+                                </a>
+                                }
                             </td>
                         </tr>
                     }
@@ -80,4 +91,8 @@ else
     $(".close").on('click', () => {
         $("#container").fadeOut(100);
     });
+
+    function ShowError(){
+        toastr["error"]("Korisnik nije dodao CV");
+    }
 </script>

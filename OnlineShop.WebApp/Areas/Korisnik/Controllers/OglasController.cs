@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
 {
@@ -94,7 +95,12 @@ namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
                     var filename = prijava.OglasId.ToString();
                     var extension = Path.GetExtension(CV.FileName);
 
-                    entity.CV = filename + extension;
+                    var fullPath = Path.Combine("CV", entity.Id.ToString(), filename + extension).Replace("\\", "_");
+
+                    var bytes = Encoding.UTF8.GetBytes(fullPath);
+                    var encodedString = Convert.ToBase64String(bytes);
+                    
+                    entity.CV = encodedString;
 
                     using (var stream = new FileStream(Path.Combine(path, filename + extension), FileMode.Create))
                     {
@@ -141,7 +147,12 @@ namespace OnlineShop.WebApp.Areas.Korisnik.Controllers
                     var filename = prijava.OglasId.ToString();
                     var extension = Path.GetExtension(CV.FileName);
 
-                    entity.PathCV = filename + extension;
+                    var fullPath = Path.Combine("CV-R", entity.Id.ToString(), filename + extension).Replace("\\", "_");
+
+                    var bytes = Encoding.UTF8.GetBytes(fullPath);
+                    var encodedString = Convert.ToBase64String(bytes);
+                    
+                    entity.PathCV = encodedString;
 
                     using (var stream = new FileStream(Path.Combine(path, filename + extension), FileMode.Create))
                     {

@@ -1,7 +1,0 @@
-	XML Fajl za projekte
-https://codepen.io/neurouz/public/feed/
-
-
-
-	XML Parser
-https://www.w3schools.com/xml/xml_parser.asp
