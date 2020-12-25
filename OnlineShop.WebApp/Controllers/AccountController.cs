@@ -155,8 +155,8 @@ namespace OnlineShop.Controllers
             };
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("fitnotify@gmail.com", "student.notify.123");
+                client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.None, System.Threading.CancellationToken.None);
+                client.Authenticate(System.Text.Encoding.UTF8, "fitnotify@gmail.com", "student.notify.123");
                 client.Send(message);
                 client.Disconnect(true);
             }
