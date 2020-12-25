@@ -145,21 +145,22 @@ namespace OnlineShop.Controllers
 
         public void PosaljiMail(AppUser user, string subject, string text)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("PC Shop", "fitnotify@gmail.com"));
-            message.To.Add(new MailboxAddress(user.Ime, user.Email));
-            message.Subject = subject;
-            message.Body = new TextPart("html")
-            {
-                Text = text
+            var message = new System.Net.Mail.MailMessage(){
+                From = new System.Net.Mail.MailAddress("fitnotify@gmail.com", "PC Shop"),
+                Subject = subject,
+                Body = text,
+                IsBodyHtml = true
             };
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.None, System.Threading.CancellationToken.None);
-                client.Authenticate(System.Text.Encoding.UTF8, "fitnotify@gmail.com", "student.notify.123");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+
+            message.To.Add(new System.Net.Mail.MailAddress(user.Email, user.Ime));
+
+            System.Net.Mail.SmtpClient client = 
+                new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+            
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new System.Net.NetworkCredential("fitnotify@gmail.com", "student.notify.123");
+            client.Send(message);
         }
 
         public async Task<IActionResult> AddUser(AppUser noviKorisnik)

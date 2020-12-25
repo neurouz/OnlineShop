@@ -104,21 +104,22 @@ namespace OnlineShop.Areas.Administrator.Controllers
         [Authorize(Roles = "Administrator")]
         public void PosaljiPoruku(AppUser user, string text, string subject)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("PC Shop", "fitnotify@gmail.com"));
-            message.To.Add(new MailboxAddress(user.Ime, user.Email));
-            message.Subject = subject;
-            message.Body = new TextPart("html")
-            {
-                Text = text
+            var message = new System.Net.Mail.MailMessage(){
+                From = new System.Net.Mail.MailAddress("fitnotify@gmail.com", "PC Shop"),
+                Subject = subject,
+                Body = text,
+                IsBodyHtml = true
             };
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("fitnotify@gmail.com", "student.notify.123");
-                client.Send(message);
-                client.Disconnect(true);
-            }
+
+            message.To.Add(new System.Net.Mail.MailAddress(user.Email, user.Ime));
+
+            System.Net.Mail.SmtpClient client = 
+                new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+            
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+            client.Credentials = new System.Net.NetworkCredential("fitnotify@gmail.com", "student.notify.123");
+            client.Send(message);
         }
         [Authorize(Roles = "Administrator")]
         public IActionResult EmailPartial(string id, string user)
