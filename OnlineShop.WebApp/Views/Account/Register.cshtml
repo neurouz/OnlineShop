@@ -171,7 +171,6 @@
 
 <script>
 
-    $(function () {
         $("#reg").validate({
             rules: {
                 Ime: {
@@ -235,7 +234,6 @@
             return this.optional(element) || /^(0{0,1}[63])[123456]\/\d{3}\-\d{3}$/g.test(value);
         }, "Broj telefona mora biti u formatu 06x/xxx-xxx ili 03x/xxx-xxx.");
 
-    });
 
 </script>
 
